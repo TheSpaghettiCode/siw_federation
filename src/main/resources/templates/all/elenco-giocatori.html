@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elenco Giocatori</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Elenco dei Giocatori</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/giocatore/nuovo">Nuovo Giocatore</a></li>
+                <li><a href="/squadra/tutte">Visualizza Squadre</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Ruolo</th>
+                    <th>Squadra</th>
+                    <th>Azione</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Questa sezione sarà popolata dal backend -->
+                <tr th:each="giocatore : ${giocatori}">
+                    <td th:text="${giocatore.nome}"></td>
+                    <td th:text="${giocatore.cognome}"></td>
+                    <td th:text="${giocatore.ruolo}"></td>
+                    <td th:text="${giocatore.squadra != null ? giocatore.squadra.nome : 'N/A'}"></td>
+                    <td>
+                        <a th:href="@{'/giocatore/modifica/' + ${giocatore.id}}">Modifica</a>
+                        <a th:href="@{'/giocatore/cancella/' + ${giocatore.id}}">Cancella</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

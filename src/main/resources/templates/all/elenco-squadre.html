@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elenco Squadre</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Elenco delle Squadre</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/squadra/nuova">Nuova Squadra</a></li>
+                <li><a href="/giocatore/tutti">Visualizza Giocatori</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Anno di Fondazione</th>
+                    <th>Indirizzo</th>
+                    <th>Azione</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Questa sezione sarà popolata dal backend -->
+                <tr th:each="squadra : ${squadre}">
+                    <td th:text="${squadra.nome}"></td>
+                    <td th:text="${squadra.annoFondazione}"></td>
+                    <td th:text="${squadra.indirizzoSede}"></td>
+                    <td>
+                        <a th:href="@{'/squadra/modifica/' + ${squadra.id}}">Modifica</a>
+                        <a th:href="@{'/squadra/cancella/' + ${squadra.id}}">Cancella</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
+
