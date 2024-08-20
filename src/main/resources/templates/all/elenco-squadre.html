@@ -12,11 +12,14 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/squadra/nuova">Nuova Squadra</a></li>
-                <li><a href="/giocatore/tutti">Visualizza Giocatori</a></li>
+                <li th:if="${#authorization.expression('hasRole('PRESIDENTE')')}">
+                    <a href="/squadra/nuova">Crea Squadra</a>
+                </li>
+                <li><a href="/giocatore/tutti">Giocatori</a></li>
             </ul>
         </nav>
     </header>
+    
     <main>
         <table>
             <thead>
@@ -28,19 +31,22 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Questa sezione sarà popolata dal backend -->
+                <!-- Popolamento dinamico dei dati -->
                 <tr th:each="squadra : ${squadre}">
                     <td th:text="${squadra.nome}"></td>
                     <td th:text="${squadra.annoFondazione}"></td>
                     <td th:text="${squadra.indirizzoSede}"></td>
                     <td>
-                        <a th:href="@{'/squadra/modifica/' + ${squadra.id}}">Modifica</a>
-                        <a th:href="@{'/squadra/cancella/' + ${squadra.id}}">Cancella</a>
+                        <a class="button" th:href="@{'/squadra/modifica/' + ${squadra.id}}">Modifica</a>
+                        <a class="button" th:href="@{'/squadra/cancella/' + ${squadra.id}}">Cancella</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </main>
+
+    <footer>
+        <p>Contatti: Federazione Sportiva | Via Roma, 100 | 00100 Roma | Tel: +39 06 1234567 | Email: info@federazionesportiva.it</p>
+    </footer>
 </body>
 </html>
-

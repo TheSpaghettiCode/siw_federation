@@ -55,14 +55,17 @@ public class Giocatore {
     private Tessera tessera;
     
 
-   /*public Giocatore(String nome, String cognome, Date dataNascita, String luogoNascita, RuoloGiocatore ruolo, Squadra squadra) {
+   public Giocatore(String nome, String cognome, Date dataNascita, String luogoNascita, RuoloGiocatore ruolo, Squadra squadra) {
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
         this.luogoNascita = luogoNascita;
         this.ruolo = ruolo;
-        //this.squadra = squadra;
-    }*/
+        this.squadra = squadra;
+    }
+
+
+    public Giocatore(){}
 
 
     @Lob

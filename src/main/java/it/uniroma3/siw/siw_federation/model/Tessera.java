@@ -22,7 +22,7 @@ public class Tessera {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "giocatore_id", referencedColumnName = "id")
-    private Giocatore giocatore;
+    private Giocatore tesseraGiocatore;
 
 
     public Long getId() {
@@ -43,11 +43,11 @@ public class Tessera {
     public void setFineTesseramento(Date fineTesseramento) {
         this.fineTesseramento = fineTesseramento;
     }
-    /*public Giocatore getTesseraGiocatore() {
+    public Giocatore getTesseraGiocatore() {
         return tesseraGiocatore;
     }
     public void setTesseraGiocatore(Giocatore tesseraGiocatore) {
         this.tesseraGiocatore = tesseraGiocatore;
-    }*/
+    }
     
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuovo Giocatore</title>
+    <title>Crea Nuovo Giocatore</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,10 +12,12 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/giocatore/tutti">Visualizza Giocatori</a></li>
+                <li><a href="/giocatore/tutti">Elenco Giocatori</a></li>
+                <li><a href="/squadra/tutte">Squadre</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
         <form th:action="@{/giocatore/salva}" th:object="${giocatore}" method="post">
             <label for="nome">Nome:</label>
@@ -23,9 +25,6 @@
 
             <label for="cognome">Cognome:</label>
             <input type="text" id="cognome" name="cognome" th:field="*{cognome}" required>
-
-            <label for="codiceFiscale">Codice Fiscale:</label>
-            <input type="text" id="codiceFiscale" name="codiceFiscale" th:field="*{codiceFiscale}" required>
 
             <label for="dataNascita">Data di Nascita:</label>
             <input type="date" id="dataNascita" name="dataNascita" th:field="*{dataNascita}" required>
@@ -45,6 +44,12 @@
             <button type="submit">Salva Giocatore</button>
         </form>
     </main>
+
+    <footer>
+        <p>Contatti: Federazione Sportiva | Via Roma, 100 | 00100 Roma | Tel: +39 06 1234567 | Email: info@federazionesportiva.it</p>
+    </footer>
 </body>
 </html>
+
+
 

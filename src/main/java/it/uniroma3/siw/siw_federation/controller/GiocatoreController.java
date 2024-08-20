@@ -33,7 +33,7 @@ public class GiocatoreController {
     // Salva un nuovo giocatore e lo assegna a una squadra
     @PostMapping("/salva")
     public String saveGiocatore(@ModelAttribute Giocatore giocatore, @RequestParam Long squadraId) {
-        giocatoreService.saveGiocatore(giocatore, squadraId);
+        giocatoreService.saveGiocatore(giocatore);
         return "redirect:/giocatore/tutti";
     }
 
@@ -84,4 +84,3 @@ public class GiocatoreController {
         return "redirect:/giocatore/tutti";
     }
 }
-

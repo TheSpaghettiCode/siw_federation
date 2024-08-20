@@ -33,16 +33,18 @@ public class Presidente {
     @Temporal(TemporalType.DATE)
     private Date dataDiNascita;
 
+    @Column(nullable = false)
     private String luogoNascita;
 
     @OneToOne(mappedBy = "presidente")
     private Squadra squadra;
 
-    public Presidente(String CF,String nome, String cognome, Date dataDiNascita, Squadra squadra) {
+    public Presidente(String CF,String nome, String cognome, Date dataDiNascita, Squadra squadra, String luogoNascita) {
         this.CF = CF;
         this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
+        this.luogoNascita = luogoNascita;
         this.squadra = squadra;
     }
 

@@ -17,11 +17,11 @@ public class SquadraController {
     private SquadraService squadraService;
 
     // Consultazione dell'elenco delle squadre
-    @GetMapping("/tutte")
+    @GetMapping("/squadra/tutte")
     public String getAllSquadre(Model model) {
         List<Squadra> squadre = squadraService.findAllSquadre();
         model.addAttribute("squadre", squadre);
-        return "elenco-squadre";
+        return "all/elenco-squadre.html";
     }
 
     // Mostra il form per creare una nuova squadra

@@ -21,10 +21,7 @@ public class GiocatoreService {
     private SquadraRepository squadraRepository;
 
     @Transactional
-    public Giocatore saveGiocatore(Giocatore giocatore, Long squadraId) {
-        Squadra squadra = squadraRepository.findById(squadraId)
-                .orElseThrow(() -> new RuntimeException("Squadra non trovata"));
-        giocatore.setSquadra(squadra);
+    public Giocatore saveGiocatore(Giocatore giocatore) {
         return giocatoreRepository.save(giocatore);
     }
 

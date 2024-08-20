@@ -12,11 +12,14 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/giocatore/nuovo">Nuovo Giocatore</a></li>
-                <li><a href="/squadra/tutte">Visualizza Squadre</a></li>
+                <li><a href="/squadra/tutte">Squadre</a></li>
+                <li th:if="${#authorization.expression('hasRole('PRESIDENTE')')}">
+                    <a href="/giocatore/nuovo">Crea Giocatore</a>
+                </li>
             </ul>
         </nav>
     </header>
+
     <main>
         <table>
             <thead>
@@ -29,19 +32,23 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Questa sezione sarà popolata dal backend -->
+                <!-- Popolamento dinamico dei dati -->
                 <tr th:each="giocatore : ${giocatori}">
                     <td th:text="${giocatore.nome}"></td>
                     <td th:text="${giocatore.cognome}"></td>
                     <td th:text="${giocatore.ruolo}"></td>
                     <td th:text="${giocatore.squadra != null ? giocatore.squadra.nome : 'N/A'}"></td>
                     <td>
-                        <a th:href="@{'/giocatore/modifica/' + ${giocatore.id}}">Modifica</a>
-                        <a th:href="@{'/giocatore/cancella/' + ${giocatore.id}}">Cancella</a>
+                        <a class="button" th:href="@{'/giocatore/modifica/' + ${giocatore.id}}">Modifica</a>
+                        <a class="button" th:href="@{'/giocatore/cancella/' + ${giocatore.id}}">Cancella</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </main>
+
+    <footer>
+        <p>Contatti: Federazione Sportiva | Via Roma, 100 | 00100 Roma | Tel: +39 06 1234567 | Email: info@federazionesportiva.it</p>
+    </footer>
 </body>
 </html>
