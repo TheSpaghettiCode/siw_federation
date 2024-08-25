@@ -38,11 +38,11 @@ public class GiocatoreController {
     }
 
     // Mostra l'elenco di tutti i giocatori
-    @GetMapping("/tutti")
+    @GetMapping("/giocatori")
     public String getAllGiocatori(Model model) {
         List<Giocatore> giocatori = giocatoreService.findAllGiocatori();
         model.addAttribute("giocatori", giocatori);
-        return "elenco-giocatori";
+        return "all/giocatori.html";
     }
 
     // Mostra il form per modificare un giocatore esistente

@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7;
+    background-color: #f3e3e3;
     color: #333;
 }
 
@@ -94,12 +94,16 @@ main {
     margin-bottom: 20px;
 }
 
-footer {
-    background-color: #333;
-    color: #fff;
+.storia-federazione {
     text-align: center;
-    padding: 10px 0;
-    margin-top: 30px;
+    margin-top: 2rem;
+}
+
+footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 1rem;
     position: fixed;
     width: 100%;
     bottom: 0;

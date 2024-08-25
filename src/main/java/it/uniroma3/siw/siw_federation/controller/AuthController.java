@@ -1,4 +1,4 @@
-package it.uniroma3.siw.siw_federation.controller;
+/*package it.uniroma3.siw.siw_federation.controller;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -67,7 +67,7 @@ public class AuthController {
         // se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!credentialsBindingResult.hasErrors()) {
             if(role.equals("GIOCATORE")){
-                Giocatore giocatore = new Giocatore(nome, cognome, dataDiNascita, luogoNascita, ruolo, squadra);
+                Giocatore giocatore = new Giocatore(CF, nome, cognome, dataDiNascita, luogoNascita, ruolo, squadra);
 
                 try {
                     byte[] byteFoto = file.getBytes();
@@ -92,4 +92,7 @@ public class AuthController {
         return "registrationPage.html";
     }
 
-}
+}*/
+
+
+

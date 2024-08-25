@@ -46,24 +46,29 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    @Bean
+    /*@Bean
     protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws Exception{
+
         httpSecurity
                 .csrf().and().cors().disable()
                 .authorizeHttpRequests()
-//                .requestMatchers("/**").permitAll()
-                // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
+                .requestMatchers("/**").permitAll()
+            // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
                 .requestMatchers(HttpMethod.GET,"/", "/loginPage","/registrationPage", "/search", "/all/**", "/css/**", "/images/**", "/javascript/**", "favicon.ico").permitAll()
-        		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
+        	// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .requestMatchers(HttpMethod.POST,"/registrationData", "/loginPage").permitAll()
-                .requestMatchers(HttpMethod.GET, "/journalist/**").hasAnyAuthority(PRESIDENTE_ROLE;)
-                .requestMatchers(HttpMethod.POST, "/journalist/**").hasAnyAuthority(PRESIDENTE_ROLE;)
-                .requestMatchers(HttpMethod.GET,"/journalist_editor/**").hasAnyAuthority(PRESIDENTE_ROLE;, GIOCATORE_ROLE;)
-                .requestMatchers(HttpMethod.POST,"/journalist_editor/**").hasAnyAuthority(PRESIDENTE_ROLE;, GIOCATORE_ROLE;)
+              
+                /*
+                .requestMatchers(HttpMethod.GET, "/presidente/**").hasAnyAuthority(PRESIDENTE_ROLE;)
+                .requestMatchers(HttpMethod.POST, "/presidente/**").hasAnyAuthority(PRESIDENTE_ROLE;)
+                .requestMatchers(HttpMethod.GET,"/presidente_editor/**").hasAnyAuthority(PRESIDENTE_ROLE;, GIOCATORE_ROLE;)
+                .requestMatchers(HttpMethod.POST,"/presidente_editor/**").hasAnyAuthority(PRESIDENTE_ROLE;, GIOCATORE_ROLE;)
                 .requestMatchers(HttpMethod.GET,"/editor/**").hasAnyAuthority(GIOCATORE_ROLE;)
-                .requestMatchers(HttpMethod.POST,"/editor/**").hasAnyAuthority(GIOCATORE_ROLE;)
-        		// tutti gli utenti autenticati possono accere alle pagine rimanenti 
-                //.anyRequest().authenticated()
+                .requestMatchers(HttpMethod.POST,"/editor/**").hasAnyAuthority(GIOCATORE_ROLE;) 
+                
+
+        	// tutti gli utenti autenticati possono accere alle pagine rimanenti 
+            //.anyRequest().authenticated()
 
                 .anyRequest().permitAll()
 
@@ -85,5 +90,5 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .clearAuthentication(true).permitAll();
         return httpSecurity.build();
-    }
-}*/
+    }*/
+//}

@@ -12,10 +12,10 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/squadra/tutte">Squadre</a></li>
-                <li th:if="${#authorization.expression('hasRole('PRESIDENTE')')}">
+                <li><a href="/squadra/squadre">Squadre</a></li>
+               <!-- <li th:if="${#authorization.expression('hasRole('PRESIDENTE')')}">
                     <a href="/giocatore/nuovo">Crea Giocatore</a>
-                </li>
+                </li>-->
             </ul>
         </nav>
     </header>

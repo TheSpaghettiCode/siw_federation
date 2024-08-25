@@ -55,7 +55,8 @@ public class Giocatore {
     private Tessera tessera;
     
 
-   public Giocatore(String nome, String cognome, Date dataNascita, String luogoNascita, RuoloGiocatore ruolo, Squadra squadra) {
+   public Giocatore(String CF,String nome, String cognome, Date dataNascita, String luogoNascita, RuoloGiocatore ruolo, Squadra squadra) {
+        this.CF = CF;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
