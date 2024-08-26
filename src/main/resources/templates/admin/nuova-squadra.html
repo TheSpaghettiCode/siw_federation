@@ -12,22 +12,29 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/squadra/tutte">Elenco Squadre</a></li>
-                <li><a href="/giocatore/tutti">Giocatori</a></li>
+                <li><a href="/squadra/squadre">Elenco Squadre</a></li>
+                <li><a href="/giocatore/giocatori">Giocatori</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <form th:action="@{/squadra/salva}" th:object="${squadra}" method="post">
+
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" th:field="*{nome}" required>
 
             <label for="annoFondazione">Anno di Fondazione:</label>
-            <input type="number" id="annoFondazione" name="annoFondazione" th:field="*{annoFondazione}" required>
+            <input type="date" id="dataFondazione" name="dataFondazione" th:field="*{dataFondazione}" required>
 
             <label for="indirizzoSede">Indirizzo della Sede:</label>
             <input type="text" id="indirizzoSede" name="indirizzoSede" th:field="*{indirizzoSede}" required>
+
+           <!--<label for="presidente">Presidente:</label>
+            <select id="presidente" name="presidenteId" required>
+                <option value="">-- Seleziona Presidente --</option>
+                <option th:each="presidente : ${presidenti}" th:value="${presidente.id}" th:text="${presidente.nome}"></option>
+            </select>--> 
 
             <button type="submit">Salva Squadra</button>
         </form>

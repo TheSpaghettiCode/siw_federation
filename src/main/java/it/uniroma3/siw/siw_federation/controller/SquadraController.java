@@ -1,6 +1,9 @@
 package it.uniroma3.siw.siw_federation.controller;
 
+
+import it.uniroma3.siw.siw_federation.model.Presidente;
 import it.uniroma3.siw.siw_federation.model.Squadra;
+import it.uniroma3.siw.siw_federation.service.PresidenteService;
 import it.uniroma3.siw.siw_federation.service.SquadraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,8 @@ public class SquadraController {
 
     @Autowired
     private SquadraService squadraService;
+    @Autowired
+    private PresidenteService presidenteService;
 
     // Consultazione dell'elenco delle squadre
     @GetMapping("/squadre")
@@ -28,14 +33,16 @@ public class SquadraController {
     @GetMapping("/nuova")
     public String showCreateSquadraForm(Model model) {
         model.addAttribute("squadra", new Squadra());
-        return "nuova-squadra";
+        List<Presidente> presidenti = presidenteService.findAll();
+        model.addAttribute("presidenti", presidenti);
+        return "admin/nuova-squadra.html";
     }
 
     // Salva una nuova squadra
     @PostMapping("/salva")
     public String saveSquadra(@ModelAttribute Squadra squadra) {
         squadraService.saveSquadra(squadra);
-        return "redirect:/squadra/tutte";
+        return "redirect:/squadra/squadre";
     }
 
     // Mostra il form per modificare una squadra esistente
@@ -44,21 +51,21 @@ public class SquadraController {
         Squadra squadra = squadraService.findSquadraById(id)
             .orElseThrow(() -> new RuntimeException("Squadra non trovata"));
         model.addAttribute("squadra", squadra);
-        return "nuova-squadra";
+        return "admin/nuova-squadra.html";
     }
 
     // Aggiorna una squadra esistente
     @PostMapping("/aggiorna/{id}")
     public String updateSquadra(@PathVariable Long id, @ModelAttribute Squadra squadraDetails) {
         squadraService.updateSquadra(id, squadraDetails);
-        return "redirect:/squadra/tutte";
+        return "redirect:/squadra/squadre";
     }
 
     // Cancella una squadra esistente
     @GetMapping("/cancella/{id}")
     public String deleteSquadra(@PathVariable Long id) {
         squadraService.deleteSquadra(id);
-        return "redirect:/squadra/tutte";
+        return "redirect:/squadra/squadre";
     }
-}
+} 
 

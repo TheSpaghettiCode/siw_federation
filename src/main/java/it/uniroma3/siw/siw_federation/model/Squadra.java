@@ -38,7 +38,19 @@ public class Squadra {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "presidente_id", referencedColumnName = "id")
     private Presidente presidente;
+
     
+    
+    public Squadra(String nome, Date dataFondazione, String indirizzoSede, Presidente presidente) {
+        this.nome = nome;
+        this.dataFondazione = dataFondazione;
+        this.indirizzoSede = indirizzoSede;
+        this.presidente = presidente;
+    }
+    
+    public Squadra() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -21,20 +21,29 @@ public class GiocatoreController {
     @Autowired
     private SquadraService squadraService;
 
+
+    /*public String showCreateGiocatoreForm(@Valid,@ModelAttribute Giocatore giocatorte, BindingResult BindingResultGiocatore, 
+    @RequestParam("CF") String CF,
+    @RequestParam("nome") String nome,
+    @RequestParam("cognome") String cognome,
+    @RequestParam("dataNascita") Date dataNascita,
+    @RequestParam("luogoNascita") String luogoNascita,
+    @RequestParam("ruolo") RuoloGiocatore ruolo,
+    @RequestParam("squadra") Squadra squadra) { */
     // Mostra il form per creare un nuovo giocatore
     @GetMapping("/nuovo")
     public String showCreateGiocatoreForm(Model model) {
         model.addAttribute("giocatore", new Giocatore());
         List<Squadra> squadre = squadraService.findAllSquadre();
         model.addAttribute("squadre", squadre);
-        return "nuovo-giocatore";
+        return "admin/nuovo-giocatore.html";
     }
 
     // Salva un nuovo giocatore e lo assegna a una squadra
     @PostMapping("/salva")
     public String saveGiocatore(@ModelAttribute Giocatore giocatore, @RequestParam Long squadraId) {
         giocatoreService.saveGiocatore(giocatore);
-        return "redirect:/giocatore/tutti";
+        return "redirect:/giocatore/giocatori";
     }
 
     // Mostra l'elenco di tutti i giocatori
@@ -60,27 +69,27 @@ public class GiocatoreController {
     @PostMapping("/aggiorna/{id}")
     public String updateGiocatore(@PathVariable Long id, @ModelAttribute Giocatore giocatoreDetails) {
         giocatoreService.updateGiocatore(id, giocatoreDetails);
-        return "redirect:/giocatore/tutti";
+        return "redirect:/giocatore/giocatori";
     }
 
     // Assegna un giocatore ad una squadra
     @PostMapping("/assegna")
     public String assignGiocatoreToSquadra(@RequestParam Long giocatoreId, @RequestParam Long squadraId) {
         giocatoreService.addGiocatoreToSquadra(giocatoreId, squadraId);
-        return "redirect:/giocatore/tutti";
+        return "redirect:/giocatore/giocatori";
     }
 
     // Cancella un giocatore esistente
     @GetMapping("/cancella/{id}")
     public String deleteGiocatore(@PathVariable Long id) {
         giocatoreService.deleteGiocatore(id);
-        return "redirect:/giocatore/tutti";
+        return "redirect:/giocatore/giocatori";
     }
 
     // Rimuove un giocatore da una squadra
     @PostMapping("/rimuoviDaSquadra")
     public String removeGiocatoreFromSquadra(@RequestParam Long giocatoreId) {
         giocatoreService.removeGiocatoreFromSquadra(giocatoreId);
-        return "redirect:/giocatore/tutti";
+        return "redirect:/giocatore/giocatori";
     }
 }
