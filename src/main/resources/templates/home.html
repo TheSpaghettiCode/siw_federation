@@ -1,49 +1,371 @@
+
+
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Federazione Sportiva</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Federazione Sportiva - Home</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Link al tuo file CSS -->
+    <!-- Aggiungiamo font moderni e icone -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* Stile di base per la pagina */
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('/images/hero_test.jpg') no-repeat center center/cover;
+            color: white;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 24px;
+            max-width: 600px;
+            margin: auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sezione informazioni */
+        .info-section {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+            background-color: #fff;
+        }
+
+        .info-section .info-box {
+            flex: 1;
+            margin: 10px;
+            padding: 20px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .info-section .info-box h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            color: #0056b3;
+        }
+
+        .info-section .info-box p {
+            font-size: 18px;
+        }
+
+        /* Sezione Giocatori */
+        .players-section {
+            background-color: #f1f1f1;
+            padding: 50px 20px;
+        }
+
+        .players-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #0056b3;
+        }
+
+        .player-card {
+            display: flex;
+            background-color: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+        }
+
+        .player-card img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin-right: 30px;
+        }
+
+        .player-info {
+            flex: 1;
+        }
+
+        .player-info h3 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .player-info p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Sezione Squadre */
+        .teams-section {
+            padding: 50px 20px;
+            background-color: #fff;
+        }
+
+        .teams-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #0056b3;
+        }
+
+        .team-card {
+            background-color: #f1f1f1;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .team-card h3 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .team-card p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Sezione FAQ */
+        .faq-section {
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #0056b3;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-item h4 {
+            margin-bottom: 10px;
+            font-size: 22px;
+            color: #0056b3;
+        }
+
+        .faq-item p {
+            font-size: 18px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .footer a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-    <header>
-        <h1>SIW Federation</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/squadra/squadre">Squadre</a></li>
-                <li><a href="/giocatore/giocatori">Giocatori</a></li>
-                <li><a href="/loginPage">Login</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <section class="slider">
-        <h2>Le Nostre Squadre</h2>
-        <div class="slider-container">
-            <!-- Aggiungere qui le immagini delle squadre -->
-            <img src="/images/squadra1.jpg" alt="Squadra 1">
-            <img src="/images/squadra2.jpg" alt="Squadra 2">
-            <img src="/images/squadra3.jpg" alt="Squadra 3">
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Federazione Sportiva</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/giocatori/all">Giocatori</a>
+            <a href="/squadre/all">Squadre</a>
+            <a href="/presidenti">Presidenti</a>
+            <a href="/about">Chi Siamo</a>
+            <a href="/loginPage">Login</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>Benvenuti nella Federazione Sportiva</h1>
+            <p>Scopri i migliori giocatori e squadre del momento, segui gli eventi e rimani aggiornato!</p>
         </div>
     </section>
 
-    <!-- Storia della Federazione -->
-    <section class="storia-federazione">
-        <h2>La Nostra Storia</h2>
-        <p>
-            La SIW Federation è stata fondata nel 2023 con l'obiettivo di promuovere lo sport e il fair play...
-        </p>
-        <!-- Aggiungi altri dettagli sulla storia -->
+    <!-- Sezione Informazioni -->
+    <section class="info-section">
+        <div class="info-box">
+            <h3>Il Nostro Impegno</h3>
+            <p>Lavoriamo costantemente per promuovere lo sport e supportare gli atleti nella loro crescita.</p>
+        </div>
+        <div class="info-box">
+            <h3>Eventi Recenti</h3>
+            <p>Partecipa agli eventi sportivi organizzati dalla nostra federazione in tutta Italia.</p>
+        </div>
+        <div class="info-box">
+            <h3>Unisciti a Noi</h3>
+            <p>Vuoi diventare un atleta o un allenatore? Scopri come puoi far parte della nostra comunità.</p>
+        </div>
+    </section>
+
+    <!-- Sezione Giocatori -->
+    <section class="players-section">
+        <h2>Giocatori di Spicco</h2>
+
+        <div class="player-card">
+            <img src="/images/giocatore1.jpg" alt="Giocatore 1">
+            <div class="player-info">
+                <h3>Mario Rossi</h3>
+                <p>Ruolo: Attaccante</p>
+                <p>Squadra: FC Roma</p>
+                <p>Età: 25</p>
+                <p>Nazionalità: Italiana</p>
+            </div>
+        </div>
+
+        <!--<div class="player-card">
+            <div class="player-photo">
+                <img th:src="'data:image/jpeg;base64,' + ${giocatore.imageBase64}" alt="Foto di ${giocatore.nome} ${giocatore.cognome}">
+            </div>
+            <div class="player-info">
+                <h2 th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></h2>
+                <p><strong>Data di Nascita:</strong> <span th:text="${#dates.format(giocatore.dataNascita, 'dd/MM/yyyy')}"></span></p>
+                <p><strong>Luogo di Nascita:</strong> <span th:text="${giocatore.luogoNascita}"></span></p>
+                <p><strong>Ruolo:</strong> <span th:text="${giocatore.ruolo}"></span></p>
+                <p><strong>Squadra:</strong> <span th:text="${giocatore.squadra.nome}"></span></p>
+            </div>
+        </div>-->
+
+        <div class="player-card">
+            <img src="/images/giocatore2.jpg" alt="Giocatore 2">
+            <div class="player-info">
+                <h3>Giuseppe Verdi</h3>
+                <p>Ruolo: Centrocampista</p>
+                <p>Squadra: AC Milan</p>
+                <p>Età: 27</p>
+                <p>Nazionalità: Italiana</p>
+            </div>
+        </div>
+
+        <!-- Aggiungi altri giocatori qui -->
+
+    </section>
+
+    <!-- Sezione Squadre -->
+    <section class="teams-section">
+        <h2>Le Nostre Squadre</h2>
+
+        <div class="team-card">
+            <h3>FC Roma</h3>
+            <p>Fondata nel 1927</p>
+            <p>Sede: Roma, Italia</p>
+        </div>
+
+        <div class="team-card">
+            <h3>AC Milan</h3>
+            <p>Fondata nel 1899</p>
+            <p>Sede: Milano, Italia</p>
+        </div>
+
+        <!-- Aggiungi altre squadre qui -->
+
+    </section>
+
+    <!-- Sezione FAQ -->
+    <section class="faq-section">
+        <h2>Domande Frequenti</h2>
+
+        <div class="faq-item">
+            <h4>Come posso iscrivermi a un evento?</h4>
+            <p>Per iscriverti a un evento, visita la nostra sezione eventi e seleziona l'evento a cui vuoi partecipare.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Come posso contattare la federazione?</h4>
+            <p>Puoi contattarci tramite la sezione contatti del sito, oppure chiamare il nostro numero verde.</p>
+        </div>
+
+        <!-- Aggiungi altre FAQ qui -->
+
     </section>
 
     <!-- Footer -->
-    <footer>
-        <p>Contatti: info@siwfederation.com | Telefono: +39 123 456 789</p>
-        <p>© 2024 SIW Federation. Tutti i diritti riservati.</p>
+    <footer class="footer">
+        <p>&copy; 2024 Federazione Sportiva. Tutti i diritti riservati.</p>
+        <p>
+            <a href="/privacy">Privacy Policy</a> | 
+            <a href="/terms">Termini e Condizioni</a> | 
+            <a href="/contact">Contatti</a>
+        </p>
     </footer>
-    
-</body>
-</html>
 
+</body>
+
+</html>

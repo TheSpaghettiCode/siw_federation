@@ -1,4 +1,4 @@
-/*package it.uniroma3.siw.siw_federation.service;
+package it.uniroma3.siw.siw_federation.service;
 
 
 import java.util.Optional;
@@ -51,4 +51,4 @@ public class CredentialsService {
         this.credentialsRepository.deleteByJournalistId(chefId);
     }
 
-}*/
+}

@@ -38,20 +38,42 @@ public class GiocatoreService {
         return giocatoreRepository.save(giocatore);
     }
 
+    // Recupera tutti i giocatori dal database
     @Transactional(readOnly = true)
-    public List<Giocatore> findAllGiocatori() {
+    public List<Giocatore> getAllGiocatori() {
         return giocatoreRepository.findAll();
     }
 
+    // Recupera tutti i giocatori ordinati per cognome
     @Transactional(readOnly = true)
-    public Optional<Giocatore> findGiocatoreById(Long id) {
-        return giocatoreRepository.findById(id);
+    public List<Giocatore> getAllGiocatoriOrdinatiPerCognome() {
+        return giocatoreRepository.findAllByOrderByCognomeAsc();
     }
 
-    @Transactional
-    public void deleteGiocatore(Long id) {
-        giocatoreRepository.deleteById(id);
+    // Recupera un giocatore per ID
+    @Transactional(readOnly = true)
+    public Giocatore getGiocatoreById(Long id) {
+        Optional<Giocatore> result = giocatoreRepository.findById(id);
+        return result.orElse(null);
     }
+
+        // Recupera un giocatore per CF
+        @Transactional(readOnly = true)
+        public Giocatore getGiocatoreByCF(String CF) {
+            return giocatoreRepository.findByCF(CF);
+        }
+    
+        // Recupera tutti i giocatori associati a una squadra
+        @Transactional(readOnly = true)
+        public List<Giocatore> getGiocatoriBySquadra(Long squadraId) {
+            return giocatoreRepository.findBySquadraId(squadraId);
+        }
+    
+        // Recupera tutti i giocatori con un certo ruolo
+        @Transactional(readOnly = true)
+        public List<Giocatore> getGiocatoriByRuolo(String ruolo) {
+            return giocatoreRepository.findByRuolo(ruolo);
+        }
 
     @Transactional
     public void addGiocatoreToSquadra(Long giocatoreId, Long squadraId) {
@@ -64,10 +86,18 @@ public class GiocatoreService {
     }
 
     @Transactional
-    public void removeGiocatoreFromSquadra(Long giocatoreId) {
+    public void deleteGiocatoreFromSquadra(Long giocatoreId) {
         Giocatore giocatore = giocatoreRepository.findById(giocatoreId)
                 .orElseThrow(() -> new RuntimeException("Giocatore non trovato"));
         giocatore.setSquadra(null);
         giocatoreRepository.save(giocatore);
     }
+
+    // Cancella un giocatore per ID
+    @Transactional
+    public void deleteGiocatoreById(Long id) {
+        giocatoreRepository.deleteById(id);
+    }
+
+
 }

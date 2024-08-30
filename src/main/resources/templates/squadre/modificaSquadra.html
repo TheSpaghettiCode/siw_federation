@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica Squadra</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Collegamento al file CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>Modifica Squadra</h1>
+    </header>
+
+    <main>
+        <form th:action="@{/squadra/update/{id}(id=${squadra.id})}" method="post">
+            <div class="form-group">
+                <label for="nome">Nome Squadra</label>
+                <input type="text" id="nome" name="nome" th:value="${squadra.nome}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dataFondazione">Data di Fondazione</label>
+                <input type="date" id="dataFondazione" name="dataFondazione" th:value="${#dates.format(squadra.dataFondazione, 'yyyy-MM-dd')}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="indirizzoSede">Indirizzo Sede</label>
+                <input type="text" id="indirizzoSede" name="indirizzoSede" th:value="${squadra.indirizzoSede}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="presidente">Presidente</label>
+                <select id="presidente" name="presidente" required>
+                    <option th:each="presidente : ${presidenti}" th:value="${presidente.id}" th:text="${presidente.nome} + ' ' + ${presidente.cognome}" th:selected="${squadra.presidente.id == presidente.id}"></option>
+                </select>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn">Salva Modifiche</button>
+                <a href="/squadre" class="btn">Annulla</a>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>Federazione Sportiva - Contatti: info@federazionesportiva.it</p>
+    </footer>
+
+</body>
+</html>

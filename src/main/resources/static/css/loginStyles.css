@@ -1,0 +1,86 @@
+/* Styles for loginPage.html */
+
+body.login-background {
+    background-image: url('/images/backgrounds/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_navbar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.header_logo {
+    height: 60px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.login-card {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.text-center {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+}
+
+.input-group-text {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.form-control {
+    background-color: #343a40;
+    color: #ffffff;
+    border: none;
+}
+
+.form-control:focus {
+    background-color: #495057;
+    color: #ffffff;
+    border-color: #007bff;
+}
+
+.btn-confirm-custom {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-confirm-custom:hover {
+    background-color: #0056b3;
+}
+
+.custom-link {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.custom-link:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federazione Sportiva - Chi Siamo</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Link al tuo file CSS -->
+    <!-- Aggiungiamo font moderni e icone -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('/images/about-hero.jpg') no-repeat center center/cover;
+            color: white;
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sezione Chi Siamo */
+        .about-section {
+            background-color: #fff;
+            padding: 50px 20px;
+        }
+
+        .about-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #0056b3;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sezione Valori */
+        .values-section {
+            background-color: #f1f1f1;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .values-section h2 {
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #0056b3;
+        }
+
+        .values-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .value-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .value-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .value-card p {
+            font-size: 18px;
+        }
+
+        /* Sezione Storia */
+        .history-section {
+            background-color: #fff;
+            padding: 50px 20px;
+        }
+
+        .history-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #0056b3;
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: auto;
+            position: relative;
+            padding: 20px 0;
+            border-left: 3px solid #0056b3;
+        }
+
+        .timeline-event {
+            padding: 20px;
+            border-radius: 6px;
+            background-color: #e3f2fd;
+            margin-bottom: 20px;
+            position: relative;
+            left: -30px;
+            width: calc(100% - 30px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-event h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #0056b3;
+        }
+
+        .timeline-event p {
+            font-size: 18px;
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -18px;
+            width: 15px;
+            height: 15px;
+            background-color: #0056b3;
+            border-radius: 50%;
+            border: 3px solid #e3f2fd;
+        }
+
+        /* Sezione Testimonials */
+        .testimonials-section {
+            background-color: #f1f1f1;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .testimonials-section h2 {
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #0056b3;
+        }
+
+        .testimonial {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .testimonial p {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .testimonial h4 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .footer a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Federazione Sportiva</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/giocatori/all">Giocatori</a>
+            <a href="/squadre/all">Squadre</a>
+            <a href="/presidenti">Presidenti</a>
+            <a href="/loginPage">Login</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>La Nostra Storia</h1>
+        </div>
+    </section>
+
+    <!-- Sezione Chi Siamo -->
+    <section class="about-section">
+        <h2>Chi Siamo</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Un Impegno che Va Oltre lo Sport</h3>
+                <p>La Federazione Sportiva è stata fondata con l’obiettivo di promuovere lo sport a tutti i livelli, 
+                   dal dilettantismo al professionismo, creando opportunità per atleti di tutte le età e livelli di abilità.</p>
+                <p>Fondata nel 1965, la nostra organizzazione ha visto una crescita costante, evolvendosi da una piccola iniziativa 
+                   regionale a una delle federazioni sportive più rispettate a livello nazionale.</p>
+                <p>Oggi, la nostra missione è sostenere atleti e squadre, sviluppare il talento e portare avanti la tradizione 
+                   sportiva con passione e impegno.</p>
+            </div>
+            <div class="about-image">
+                <img src="/images/history.jpg" alt="La nostra storia">
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Valori -->
+    <section class="values-section">
+        <h2>I Nostri Valori</h2>
+        <div class="values-cards">
+            <div class="value-card">
+                <h3>Integrità</h3>
+                <p>L’onestà e l’etica sono alla base di tutto ciò che facciamo.</p>
+            </div>
+            <div class="value-card">
+                <h3>Passione</h3>
+                <p>Siamo guidati da una passione autentica per lo sport e per i nostri atleti.</p>
+            </div>
+            <div class="value-card">
+                <h3>Inclusione</h3>
+                <p>Crediamo che lo sport debba essere accessibile a tutti, indipendentemente da età, genere o abilità.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Storia -->
+    <section class="history-section">
+        <h2>La Nostra Storia</h2>
+        <div class="timeline">
+            <div class="timeline-event">
+                <h3>1965: La Fondazione</h3>
+                <p>La Federazione Sportiva nasce con l'obiettivo di promuovere lo sport a livello locale, con un piccolo gruppo di appassionati che condividono la stessa visione.</p>
+            </div>
+            <div class="timeline-event">
+                <h3>1975: Espansione a Livello Regionale</h3>
+                <p>Iniziamo ad organizzare eventi sportivi su larga scala, espandendo la nostra presenza in tutta la regione.</p>
+            </div>
+            <div class="timeline-event">
+                <h3>1990: Riconoscimento Nazionale</h3>
+                <p>Viene riconosciuta ufficialmente come una delle principali organizzazioni sportive a livello nazionale.</p>
+            </div>
+            <div class="timeline-event">
+                <h3>2010: Supporto agli Atleti Professionisti</h3>
+                <p>Abbiamo iniziato a lavorare con atleti professionisti, offrendo supporto e risorse per competere ai massimi livelli.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Testimonials -->
+    <section class="testimonials-section">
+        <h2>Testimonianze</h2>
+        <div class="testimonial">
+            <p>"La Federazione Sportiva è stata un pilastro fondamentale nel mio percorso come atleta professionista."</p>
+            <h4>- Mario Rossi, Calciatore Professionista</h4>
+        </div>
+        <div class="testimonial">
+            <p>"Grazie al supporto della Federazione, ho potuto trasformare la mia passione in una carriera."</p>
+            <h4>- Laura Bianchi, Maratoneta</h4>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Federazione Sportiva. Tutti i diritti riservati.</p>
+        <p>
+            <a href="/privacy">Privacy Policy</a> | 
+            <a href="/terms">Termini e Condizioni</a> | 
+            <a href="/contact">Contatti</a>
+        </p>
+    </footer>
+
+</body>
+
+</html>

@@ -46,7 +46,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    /*@Bean
+    @Bean
     protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws Exception{
 
         httpSecurity
@@ -58,7 +58,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
         	// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .requestMatchers(HttpMethod.POST,"/registrationData", "/loginPage").permitAll()
               
-                /*
+                
                 .requestMatchers(HttpMethod.GET, "/presidente/**").hasAnyAuthority(PRESIDENTE_ROLE;)
                 .requestMatchers(HttpMethod.POST, "/presidente/**").hasAnyAuthority(PRESIDENTE_ROLE;)
                 .requestMatchers(HttpMethod.GET,"/presidente_editor/**").hasAnyAuthority(PRESIDENTE_ROLE;, GIOCATORE_ROLE;)
@@ -90,5 +90,94 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .clearAuthentication(true).permitAll();
         return httpSecurity.build();
-    }*/
-//}
+    }
+}*/
+
+
+package it.uniroma3.siw.siw_federation.authentication;
+
+import static it.uniroma3.siw.siw_federation.model.Credentials.GIOCATORE_ROLE;
+import static it.uniroma3.siw.siw_federation.model.Credentials.PRESIDENTE_ROLE;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+@Configuration
+@EnableWebSecurity
+public class AuthConfiguration {
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .authoritiesByUsernameQuery("SELECT username, role FROM credentials WHERE username=?")
+                .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws Exception {
+
+        httpSecurity
+                .csrf().and().cors().disable()
+                .authorizeHttpRequests()
+
+                // Pagine pubbliche
+                .requestMatchers(HttpMethod.GET, "/", "/loginPage", "/registrationPage.html", "/search", "/all/**","/messages/**", "/css/**", "/images/**", "/javascript/**", "favicon.ico", "/rest/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/registrationData", "/loginPage","/registrationPage.html").permitAll()
+
+                // Accesso basato sui ruoli
+                .requestMatchers(HttpMethod.GET, "/presidente/**").hasAuthority(PRESIDENTE_ROLE)
+                .requestMatchers(HttpMethod.POST, "/presidente/**").hasAuthority(PRESIDENTE_ROLE)
+                .requestMatchers(HttpMethod.GET, "/presidente_editor/**").hasAnyAuthority(PRESIDENTE_ROLE, GIOCATORE_ROLE)
+                .requestMatchers(HttpMethod.POST, "/presidente_editor/**").hasAnyAuthority(PRESIDENTE_ROLE, GIOCATORE_ROLE)
+                .requestMatchers(HttpMethod.GET, "/editor/**").hasAuthority(GIOCATORE_ROLE)
+                .requestMatchers(HttpMethod.POST, "/editor/**").hasAuthority(GIOCATORE_ROLE)
+
+                // Tutti gli utenti autenticati possono accedere alle altre pagine
+                .anyRequest().authenticated()
+
+                // Configurazione del login
+                .and().formLogin()
+                .loginPage("/loginPage")
+                .permitAll()
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/loginPage?error=true")
+
+                // Configurazione del logout
+                .and().logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .clearAuthentication(true).permitAll();
+
+        return httpSecurity.build();
+    }
+}

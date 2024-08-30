@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettagli Squadra</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Collegamento al file CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>Dettagli Squadra</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/squadra/squadre">Elenco Squadre</a></li>
+                <li><a href="/giocatore/giocatori">Giocatori</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="team-details">
+            <h2 th:text="${squadra.nome}"></h2>
+            <p><strong>Data di Fondazione:</strong> <span th:text="${#dates.format(squadra.dataFondazione, 'dd/MM/yyyy')}"></span></p>
+            <p><strong>Indirizzo Sede:</strong> <span th:text="${squadra.indirizzoSede}"></span></p>
+            <p><strong>Presidente:</strong> <span th:text="${squadra.presidente.nome} + ' ' + ${squadra.presidente.cognome}"></span></p>
+        </section>
+
+        <section class="team-players">
+            <h3>Giocatori</h3>
+            <ul>
+                <li th:each="giocatore : ${squadra.giocatori}">
+                    <a th:href="@{/giocatore/{id}(id=${giocatore.id})}" th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></a>
+                </li>
+            </ul>
+        </section>
+
+        <div class="actions">
+            <a href="/squadre" class="btn">Torna all'elenco squadre</a>
+            <a th:href="@{/squadra/edit/{id}(id=${squadra.id})}" class="btn">Modifica Squadra</a>
+            <a th:href="@{/squadra/delete/{id}(id=${squadra.id})}" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');">Elimina Squadra</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Federazione Sportiva - Contatti: info@federazionesportiva.it</p>
+    </footer>
+
+</body>
+</html>
+

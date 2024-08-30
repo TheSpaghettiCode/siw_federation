@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login_SIW_Federation</title>
-        <meta charset="UTF 8">
+        <title>Registrazione - FreshGame</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="/css/styles.css?version=3"/>
-        <script th:inline="javascript" src="/javascript/script.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/registrationStyles.css"/>
+        <script src="/javascript/script.js" defer></script>
 
-        <!--bootstrap-->
+        <!-- Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
 
@@ -23,48 +23,47 @@
                 <h1 class="h3 mb-3 font-weight-normal text-center text-white">Registrati</h1>
 
                 <div>
-                    <label class="sr-only" >Codice Fiscale</label>
-                    <input type="text" name="CF" class="form-control mb-3 inputRegistration" placeholder="CF"/>
+                    <label class="sr-only" for="cf">Codice Fiscale</label>
+                    <input type="text" id="cf" name="CF" class="form-control mb-3 inputRegistration" placeholder="Codice Fiscale" required/>
                 </div>
                 
                 <div>
-                    <label class="sr-only" >Nome</label>
-                    <input type="text" name="nome" class="form-control mb-3 inputRegistration" placeholder="Nome"/>
+                    <label class="sr-only" for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" class="form-control mb-3 inputRegistration" placeholder="Nome" required/>
                 </div>
                     
                 <div>
-                    <label class="sr-only">Cognome</label>
-                    <input type="text" name="Cognome" class="form-control mb-3 inputRegistration" placeholder="Cognome"/>
+                    <label class="sr-only" for="cognome">Cognome</label>
+                    <input type="text" id="cognome" name="Cognome" class="form-control mb-3 inputRegistration" placeholder="Cognome" required/>
                 </div>
 
                 <div>
-                    <label class="sr-only">Data di nascita</label>
-                    <input type="text" name="dataNascita" class="form-control mb-3 inputRegistration" placeholder="dataNascita"/>
+                    <label class="sr-only" for="dataNascita">Data di nascita</label>
+                    <input type="date" id="dataNascita" name="dataNascita" class="form-control mb-3 inputRegistration" required/>
                 </div>
 
                 <div>
-                    <label class="sr-only">Luogo di Nasvita</label>
-                    <input type="text" name="luogoNascita" class="form-control mb-3 inputRegistration" placeholder="luogoNascita"/>
+                    <label class="sr-only" for="luogoNascita">Luogo di Nascita</label>
+                    <input type="text" id="luogoNascita" name="luogoNascita" class="form-control mb-3 inputRegistration" placeholder="Luogo di Nascita" required/>
                 </div>
 
                 <div>
-                    <label class="sr-only">Your Username</label>
-                    <input type="text" th:field="${credentials.username}" class="form-control mb-3" placeholder="Username" required autofocus/>
-                    <span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" th:style="'color:red'"></span>
+                    <label class="sr-only" for="username">Username</label>
+                    <input type="text" id="username" th:field="${credentials.username}" class="form-control mb-3" placeholder="Username" required/>
+                    <span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" class="text-danger"></span>
                 </div>
 
                 <div>
-                    <label class="sr-only">Insert Password</label>
-                    <input type="password" th:field="${credentials.password}" class="form-control mb-3" placeholder="Password" required/>
-                    <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" th:style="'color:red'"></span>
+                    <label class="sr-only" for="password">Password</label>
+                    <input type="password" id="password" th:field="${credentials.password}" class="form-control mb-3" placeholder="Password" required/>
+                    <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" class="text-danger"></span>
                 </div>
 
-                
                 <div class="mb-3" id="chooseRoleRegistration">
                     <label class="d-block text-white">Registrati come:</label>
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="presidenteRole" name="role" value="PRESIDENTE" class="custom-control-input" checked onclick="updateRegistrationForm(this)">
-                        <label class="custom-control-label text-white" for="presidenteRole">Lettore</label>
+                        <label class="custom-control-label text-white" for="presidenteRole">Presidente</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="giocatoreRole" name="role" value="GIOCATORE" class="custom-control-input" onclick="updateRegistrationForm(this)">
@@ -72,12 +71,10 @@
                     </div>
                 </div>
                 
-                
-                
                 <button type="submit" id="registrationButton" class="btn btn-lg btn-primary btn-block custom-btn">Registrati</button>
 
                 <p class="mt-2 text-center" id="loginLink">
-                    <span class="text-white"> Hai gia' un account? </span>
+                    <span class="text-white">Hai già un account?</span>
                     <a href="/loginPage" class="custom-link">Accedi</a>
                 </p>
 

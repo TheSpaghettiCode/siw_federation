@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica Giocatore</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Collegamento al file CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>Modifica Giocatore</h1>
+    </header>
+
+    <main>
+        <form th:action="@{/giocatore/update/{id}(id=${giocatore.id})}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="CF">Codice Fiscale</label>
+                <input type="text" id="CF" name="CF" th:value="${giocatore.CF}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" th:value="${giocatore.nome}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cognome">Cognome</label>
+                <input type="text" id="cognome" name="cognome" th:value="${giocatore.cognome}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dataNascita">Data di Nascita</label>
+                <input type="date" id="dataNascita" name="dataNascita" th:value="${#dates.format(giocatore.dataNascita, 'yyyy-MM-dd')}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="luogoNascita">Luogo di Nascita</label>
+                <input type="text" id="luogoNascita" name="luogoNascita" th:value="${giocatore.luogoNascita}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ruolo">Ruolo</label>
+                <select id="ruolo" name="ruolo" required>
+                    <option th:each="ruolo : ${#arrays.asList(T('it.uniroma3.siw.siw_federation.model.RuoloGiocatore').values())}"
+                            th:value="${ruolo}" th:text="${ruolo}" th:selected="${giocatore.ruolo == ruolo}">Ruolo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="squadra">Squadra</label>
+                <select id="squadra" name="squadra" required>
+                    <option th:each="squadra : ${squadre}" th:value="${squadra.id}" th:text="${squadra.nome}" th:selected="${giocatore.squadra.id == squadra.id}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Immagine</label>
+                <input type="file" id="image" name="image">
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn">Salva Modifiche</button>
+                <a href="/giocatori" class="btn">Annulla</a>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>Federazione Sportiva - Contatti: info@federazionesportiva.it</p>
+    </footer>
+
+</body>
+</html>

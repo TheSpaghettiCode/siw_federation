@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuova Squadra</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Collegamento al file CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>Crea Nuova Squadra</h1>
+    </header>
+
+    <main>
+        <form th:action="@{/squadra/new}" method="post">
+            <div class="form-group">
+                <label for="nome">Nome Squadra</label>
+                <input type="text" id="nome" name="nome" placeholder="Inserisci Nome Squadra" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dataFondazione">Data di Fondazione</label>
+                <input type="date" id="dataFondazione" name="dataFondazione" required>
+            </div>
+
+            <div class="form-group">
+                <label for="indirizzoSede">Indirizzo Sede</label>
+                <input type="text" id="indirizzoSede" name="indirizzoSede" placeholder="Inserisci Indirizzo della Sede">
+            </div>
+
+            <div class="form-group">
+                <label for="presidente">Presidente</label>
+                <select id="presidente" name="presidente" required>
+                    <option value="" disabled selected>Seleziona Presidente</option>
+                    <option th:each="presidente : ${presidenti}" th:value="${presidente.id}" th:text="${presidente.nome} + ' ' + ${presidente.cognome}"></option>
+                </select>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn">Crea Squadra</button>
+                <a href="/squadre/all" class="btn">Annulla</a>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>Federazione Sportiva - Contatti: info@federazionesportiva.it</p>
+    </footer>
+
+</body>
+</html>
+

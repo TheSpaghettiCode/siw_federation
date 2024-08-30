@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettagli Giocatore</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Collegamento al file CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>Dettagli Giocatore</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/squadra/squadre">Elenco Squadre</a></li>
+                <li><a href="/giocatore/giocatori">Giocatori</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="player-details">
+            <div class="player-photo">
+                <img th:src="'data:image/jpeg;base64,' + ${giocatore.imageBase64}" alt="Foto di ${giocatore.nome} ${giocatore.cognome}">
+            </div>
+            <div class="player-info">
+                <h2 th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></h2>
+                <p><strong>Codice Fiscale:</strong> <span th:text="${giocatore.CF}"></span></p>
+                <p><strong>Data di Nascita:</strong> <span th:text="${#dates.format(giocatore.dataNascita, 'dd/MM/yyyy')}"></span></p>
+                <p><strong>Luogo di Nascita:</strong> <span th:text="${giocatore.luogoNascita}"></span></p>
+                <p><strong>Ruolo:</strong> <span th:text="${giocatore.ruolo}"></span></p>
+                <p><strong>Squadra:</strong> <span th:text="${giocatore.squadra.nome}"></span></p>
+            </div>
+        </section>
+
+        <div class="actions">
+            <a href="/giocatori" class="btn">Torna all'elenco giocatori</a>
+            <a th:href="@{/giocatore/edit/{id}(id=${giocatore.id})}" class="btn">Modifica Giocatore</a>
+            <a th:href="@{/giocatore/delete/{id}(id=${giocatore.id})}" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questo giocatore?');">Elimina Giocatore</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Federazione Sportiva - Contatti: info@federazionesportiva.it</p>
+    </footer>
+
+</body>
+</html>
+

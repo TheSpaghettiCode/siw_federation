@@ -1,4 +1,4 @@
-/*package it.uniroma3.siw.siw_federation.repository;
+package it.uniroma3.siw.siw_federation.repository;
 
 import java.util.Optional;
 
@@ -20,4 +20,4 @@ public interface CredentialsRepository extends JpaRepository<Credentials,Long> {
     @Query("DELETE FROM Credentials c WHERE c.presidente.id = :presidenteId")
     public void deleteByJournalistId(Long presidenteId);
 
-}*/
+}
