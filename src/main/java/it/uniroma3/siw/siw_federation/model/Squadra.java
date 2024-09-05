@@ -1,7 +1,7 @@
 package it.uniroma3.siw.siw_federation.model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -13,8 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
 
 @Entity
 public class Squadra {
@@ -22,15 +21,12 @@ public class Squadra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false,unique = true)
     private String nome;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dataFondazione;
-
+    private LocalDate dataFondazione;
     private String indirizzoSede;
+    @Column(length = 10000000)
+    private String imageBase64;
+    private String descrizione;
 
     @OneToMany(mappedBy = "squadra", cascade = CascadeType.ALL)
     private List<Giocatore> giocatori = new ArrayList<>();
@@ -41,11 +37,12 @@ public class Squadra {
 
     
     
-    public Squadra(String nome, Date dataFondazione, String indirizzoSede, Presidente presidente) {
+    public Squadra(String nome, LocalDate dataFondazione, String indirizzoSede, Presidente presidente,String descrizione) {
         this.nome = nome;
         this.dataFondazione = dataFondazione;
         this.indirizzoSede = indirizzoSede;
         this.presidente = presidente;
+        this.descrizione = descrizione;
     }
     
     public Squadra() {
@@ -63,10 +60,10 @@ public class Squadra {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public Date getDataFondazione() {
+    public LocalDate getDataFondazione() {
         return dataFondazione;
     }
-    public void setDataFondazione(Date dataFondazione) {
+    public void setDataFondazione(LocalDate dataFondazione) {
         this.dataFondazione = dataFondazione;
     }
     public String getIndirizzoSede() {
@@ -74,6 +71,34 @@ public class Squadra {
     }
     public void setIndirizzoSede(String indirizzoSede) {
         this.indirizzoSede = indirizzoSede;
+    }
+    public List<Giocatore> getGiocatori() {
+        return giocatori;
+    }
+    public void setGiocatori(List<Giocatore> giocatori) {
+        this.giocatori = giocatori;
+    }
+    public Presidente getPresidente() {
+        return presidente;
+    }
+    public void setPresidente(Presidente presidente) {
+        this.presidente = presidente;
+    }
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
     
@@ -111,18 +136,6 @@ public class Squadra {
         } else if (!indirizzoSede.equals(other.indirizzoSede))
             return false;
         return true;
-    }
-    public List<Giocatore> getGiocatori() {
-        return giocatori;
-    }
-    public void setGiocatori(List<Giocatore> giocatori) {
-        this.giocatori = giocatori;
-    }
-    public Presidente getPresidente() {
-        return presidente;
-    }
-    public void setPresidente(Presidente presidente) {
-        this.presidente = presidente;
     }
 
 

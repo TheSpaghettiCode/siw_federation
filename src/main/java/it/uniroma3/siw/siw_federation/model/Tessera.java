@@ -1,6 +1,7 @@
 package it.uniroma3.siw.siw_federation.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -17,8 +18,8 @@ public class Tessera {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date inizioTesseramento;
-    private Date fineTesseramento;
+    private LocalDate inizioTesseramento;
+    private LocalDate fineTesseramento;
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "giocatore_id", referencedColumnName = "id")
@@ -31,16 +32,16 @@ public class Tessera {
     public void setId(Long id) {
         this.id = id;
     }
-    public Date getInizioTesseramento() {
+    public LocalDate getInizioTesseramento() {
         return inizioTesseramento;
     }
-    public void setInizioTesseramento(Date inizioTesseramento) {
+    public void setInizioTesseramento(LocalDate inizioTesseramento) {
         this.inizioTesseramento = inizioTesseramento;
     }
-    public Date getFineTesseramento() {
+    public LocalDate getFineTesseramento() {
         return fineTesseramento;
     }
-    public void setFineTesseramento(Date fineTesseramento) {
+    public void setFineTesseramento(LocalDate fineTesseramento) {
         this.fineTesseramento = fineTesseramento;
     }
     public Giocatore getTesseraGiocatore() {

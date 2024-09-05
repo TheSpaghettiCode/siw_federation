@@ -110,7 +110,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Date;
+import java.time.LocalDate;
 
 import it.uniroma3.siw.siw_federation.model.Credentials;
 import it.uniroma3.siw.siw_federation.model.Giocatore;
@@ -149,18 +149,23 @@ public class AuthController {
     public String registerUser(@RequestParam(required = false, name = "CF") String CF, 
                                 @RequestParam(required = false, name = "nome") String nome, 
                                 @RequestParam(required = false, name = "cognome") String cognome, 
-                                @RequestParam(required = false, name = "dataDiNascita") Date dataDiNascita,
+                                @RequestParam(required = false, name = "dataDiNascita") LocalDate dataDiNascita,
                                 @RequestParam(required = false, name = "luogoNascita") String luogoNascita,  
-                                @RequestParam(required = false, name = "squadra") Squadra squadra,
-                                @RequestParam(required = false, name = "ruolo") RuoloGiocatore ruolo,
                                 @RequestParam(required = false, name = "image") MultipartFile file,
                                 @Valid @ModelAttribute("credentials") Credentials credentials, BindingResult credentialsBindingResult,
                                 @RequestParam("role") String role,
                                 Model model) {
 
         if (!credentialsBindingResult.hasErrors()) {
-            if (role.equals("GIOCATORE")) {
-                Giocatore giocatore = new Giocatore(CF, nome, cognome, dataDiNascita, luogoNascita, ruolo, squadra);
+
+            if (role.equals("PRESIDENTE")) {
+                Presidente presidente = new Presidente(CF, nome, cognome, dataDiNascita, luogoNascita);
+                presidenteService.savePresidente(presidente);
+                credentials.setPresidente(presidente);
+            }
+            
+            else if (role.equals("GIOCATORE")) {
+                Giocatore giocatore = new Giocatore(CF, nome, cognome, dataDiNascita, luogoNascita);
 
                 try {
                     byte[] byteFoto = file.getBytes();
@@ -171,11 +176,7 @@ public class AuthController {
                     model.addAttribute("message", "Upload della foto fallito!");
                     return "/registrationPage";
                 }
-            } else if (role.equals("PRESIDENTE")) {
-                Presidente presidente = new Presidente(CF, nome, cognome, dataDiNascita, squadra, luogoNascita);
-                presidenteService.savePresidente(presidente);
-                credentials.setPresidente(presidente);
-            }
+            } 
 
             credentialsService.saveCredentials(credentials, role);
             return "redirect:/loginPage?registration=true";

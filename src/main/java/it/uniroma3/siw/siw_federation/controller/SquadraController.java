@@ -100,6 +100,7 @@ public class SquadraController {
     @Autowired
     private PresidenteService presidenteService;
 
+
     // Mostra la lista di tutte le squadre
     @GetMapping("/all")
     public String getAllSquadre(Model model) {
@@ -119,35 +120,59 @@ public class SquadraController {
         return "redirect:/squadre"; // Se l'ID non esiste, torna alla lista delle squadre
     }
 
-    // Mostra il form per creare una nuova squadra
+    /**
+     * GET Mapping per visualizzare il form di creazione di una nuova squadra.
+     * Questo metodo prepara il modello per il form, includendo una nuova istanza di Squadra
+     * e la lista dei Presidenti disponibili.
+     *
+     * @param model Il modello da passare alla vista.
+     * @return Il nome della vista che visualizza il form di creazione di una nuova squadra.
+     */
     @GetMapping("/nuova")
-    public String showCreateSquadraForm(Model model) {
-        model.addAttribute("squadra", new Squadra());
-        model.addAttribute("presidenti", presidenteService.getAllPresidenti()); // Popola il dropdown dei presidenti
-        return "squadre/nuovaSquadra.html"; // Indica il template Thymeleaf per il form di creazione
+    public String showNuovaSquadraForm(Model model) {
+        // Creiamo una nuova istanza di Squadra
+        Squadra squadra = new Squadra();
+
+        // Recuperiamo la lista di tutti i Presidenti dal database
+        List<Presidente> presidenti = presidenteService.getAllPresidenti();
+
+        // Aggiungiamo l'istanza di Squadra e la lista di Presidenti al modello
+        model.addAttribute("squadra", squadra);
+        model.addAttribute("presidenti", presidenti);
+
+        // Ritorniamo la vista "nuovaSquadra" per visualizzare il form
+        return "nuovaSquadra";
     }
 
-    // Gestisce la creazione di una nuova squadra
+    /**
+     * POST Mapping per gestire l'invio del form e salvare la nuova squadra nel database.
+     * Se ci sono errori di validazione, viene mostrato di nuovo il form con gli errori.
+     * Se il form è valido, la squadra viene salvata e si viene reindirizzati alla lista delle squadre.
+     *
+     * @param squadra L'oggetto squadra riempito con i dati del form.
+     * @param bindingResult L'oggetto che contiene gli errori di validazione.
+     * @param model Il modello da passare alla vista.
+     * @return Un redirect alla lista delle squadre o alla vista del form in caso di errore.
+     */
     @PostMapping("/nuova")
-    public String createSquadra(@Valid @ModelAttribute("squadra") Squadra squadra, 
-                                BindingResult bindingResult, 
-                                @RequestParam("presidenteId") Long presidenteId,
-                                Model model) {
+    public String saveNuovaSquadra(
+            @Valid @ModelAttribute("squadra") Squadra squadra,
+            BindingResult bindingResult,
+            Model model) {
+
+        // Se ci sono errori di validazione, torniamo alla pagina del form
         if (bindingResult.hasErrors()) {
-            model.addAttribute("presidenti", presidenteService.getAllPresidenti());
-            return "squadre/nuovaSquadra.html"; // Ritorna al form se ci sono errori di validazione
+            // Ricarichiamo la lista di presidenti da passare di nuovo alla vista
+            List<Presidente> presidenti = presidenteService.getAllPresidenti();
+            model.addAttribute("presidenti", presidenti);
+            return "nuovaSquadra";
         }
 
-        Presidente presidente = presidenteService.getPresidenteById(presidenteId);
-        if (presidente == null) {
-            model.addAttribute("message", "Il presidente selezionato non esiste");
-            model.addAttribute("presidenti", presidenteService.getAllPresidenti());
-            return "squadre/nuovaSquadra.html"; // Ritorna al form se il presidente non esiste
-        }
-
-        squadra.setPresidente(presidente);
+        // Salviamo la nuova squadra utilizzando il servizio SquadraService
         squadraService.saveSquadra(squadra);
-        return "redirect:/squadre"; // Reindirizza alla lista delle squadre dopo la creazione
+
+        // Redirigiamo alla lista delle squadre o alla pagina desiderata
+        return "redirect:/squadre";  // Puoi modificare l'URL di redirect in base alle tue esigenze
     }
 
     // Mostra il form per modificare una squadra esistente

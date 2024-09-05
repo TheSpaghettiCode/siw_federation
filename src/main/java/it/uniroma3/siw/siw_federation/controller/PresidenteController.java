@@ -1,4 +1,4 @@
-/*package it.uniroma3.siw.siw_federation.controller;
+package it.uniroma3.siw.siw_federation.controller;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class PresidenteController {
     private PresidenteService presidenteService;
 
     // Mostra la lista di tutti i presidenti
-    @GetMapping
+    @GetMapping("/all")
     public String getAllPresidenti(Model model) {
         List<Presidente> presidenti = presidenteService.getAllPresidenti();
         model.addAttribute("presidenti", presidenti);
@@ -42,23 +42,6 @@ public class PresidenteController {
         return "redirect:/presidenti"; // Se l'ID non esiste, torna alla lista dei presidenti
     }
 
-    // Mostra il form per creare un nuovo presidente
-    @GetMapping("/nuovo")
-    public String showCreatePresidenteForm(Model model) {
-        model.addAttribute("presidente", new Presidente());
-        return "presidenti/creaPresidente"; // Indica il template Thymeleaf per il form di creazione
-    }
-
-    // Gestisce la creazione di un nuovo presidente
-    @PostMapping("/nuovo")
-    public String createPresidente(@Valid @ModelAttribute("presidente") Presidente presidente,
-                                   BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "presidenti/creaPresidente"; // Ritorna al form se ci sono errori di validazione
-        }
-        presidenteService.savePresidente(presidente);
-        return "redirect:/presidenti"; // Reindirizza alla lista dei presidenti dopo la creazione
-    }
 
     // Mostra il form per modificare un presidente esistente
     @GetMapping("/modifica/{id}")
@@ -89,4 +72,4 @@ public class PresidenteController {
         presidenteService.deletePresidenteById(id);
         return "redirect:/presidenti"; // Reindirizza alla lista dei presidenti dopo la cancellazione
     }
-}*/
+}

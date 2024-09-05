@@ -154,6 +154,7 @@ public class GiocatoreController {
                                   @RequestParam("image") MultipartFile file,
                                   @RequestParam("squadraId") Long squadraId,
                                   Model model) {
+                                    
         if (bindingResult.hasErrors()) {
             model.addAttribute("ruoli", RuoloGiocatore.values());
             model.addAttribute("squadre", squadraService.getAllSquadre());

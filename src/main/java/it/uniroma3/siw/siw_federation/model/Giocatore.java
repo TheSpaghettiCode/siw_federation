@@ -1,6 +1,7 @@
 package it.uniroma3.siw.siw_federation.model;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,11 +15,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
 
 @Entity
 public class Giocatore {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,18 +27,9 @@ public class Giocatore {
 
     @Column(nullable = false)
     private String CF;
-
-    @Column(nullable = false)
     private String nome;
-
-    @Column(nullable = false)
     private String cognome;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dataNascita;
-
-    @Column(nullable = false)
+    private LocalDate dataNascita;
     private String luogoNascita;
     
     @Enumerated(EnumType.STRING)
@@ -53,21 +45,18 @@ public class Giocatore {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tessera_id", referencedColumnName = "id")
     private Tessera tessera;
-    
 
-   public Giocatore(String CF,String nome, String cognome, Date dataNascita, String luogoNascita, RuoloGiocatore ruolo, Squadra squadra) {
+    public Giocatore(String CF,String nome, String cognome, LocalDate dataNascita, String luogoNascita) {
         this.CF = CF;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
         this.luogoNascita = luogoNascita;
-        this.ruolo = ruolo;
-        this.squadra = squadra;
     }
 
-
-    public Giocatore(){}
-
+    public Giocatore() {
+        //TODO Auto-generated constructor stub
+    }
 
     @Lob
     private String foto;
@@ -104,11 +93,11 @@ public class Giocatore {
         this.cognome = cognome;
     }
 
-    public Date getDataNascita() {
+    public LocalDate getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(Date dataNascita) {
+    public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
     }
 

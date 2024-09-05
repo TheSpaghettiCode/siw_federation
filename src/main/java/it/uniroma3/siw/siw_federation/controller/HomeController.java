@@ -61,22 +61,14 @@ public class HomeController {
 
 package it.uniroma3.siw.siw_federation.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import it.uniroma3.siw.siw_federation.model.Credentials;
-import it.uniroma3.siw.siw_federation.service.PresidenteService;
 
 @Controller
 public class HomeController {
-
-
-    @Autowired
-    private PresidenteService presidenteService;
 
     /**
      * Mappa la root ("/") per la visualizzazione della home page.
@@ -92,15 +84,6 @@ public class HomeController {
     @GetMapping("/about")
     public String about(Model model) {
         return "about.html";  // Ritorna la vista "home.html"
-    }
-
-    /**
-     * Mappa la navigazione alla pagina che visualizza la lista di tutti i presidenti.
-     */
-    @GetMapping("/presidenti")
-    public String showPresidenti(Model model) {
-        model.addAttribute("presidenti", presidenteService.getAllPresidenti());
-        return "presidenti";  // Ritorna la vista "presidenti.html"
     }
 
     @PostMapping("/login")

@@ -1,0 +1,148 @@
+/* Stile generico per il corpo della pagina */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Contenitore principale */
+.container {
+    margin-top: 20px;
+    max-width: 800px;
+}
+
+/* Stile della card */
+.card {
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.card-header {
+    border-bottom: none;
+    padding: 15px 20px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Pulsanti */
+.btn {
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Input e textarea */
+.form-control,
+.form-select {
+    border-radius: 50px;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+textarea.form-control {
+    border-radius: 15px;
+    resize: none;
+}
+
+/* Messaggi di errore e successo */
+.alert {
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.footer a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+     text-decoration: underline;
+}
+
+/* Media query per dispositivi mobili */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .btn {
+        padding: 8px 16px;
+    }
+
+    .card-header h3 {
+        font-size: 1.25rem;
+    }
+}

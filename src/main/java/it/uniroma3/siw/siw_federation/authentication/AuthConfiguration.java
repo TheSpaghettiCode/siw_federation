@@ -148,7 +148,7 @@ public class AuthConfiguration {
                 .authorizeHttpRequests()
 
                 // Pagine pubbliche
-                .requestMatchers(HttpMethod.GET, "/", "/loginPage", "/registrationPage.html", "/search", "/all/**","/messages/**", "/css/**", "/images/**", "/javascript/**", "favicon.ico", "/rest/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/", "/loginPage", "/registrationPage.html","/about.html", "/search", "/all/**","/messages/**", "/css/**", "/images/**", "/javascript/**", "favicon.ico", "/rest/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/registrationData", "/loginPage","/registrationPage.html").permitAll()
 
                 // Accesso basato sui ruoli

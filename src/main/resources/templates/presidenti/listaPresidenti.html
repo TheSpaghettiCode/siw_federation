@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista dei Presidenti</title>
+    <link rel="stylesheet" href="/css/style_presidenti.css">
+    <!-- Font Awesome per le icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">Federazione Sportiva</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/squadre/all">Squadre</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="container">
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Data di Nascita</th>
+                            <th>Squadra</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="presidente : ${presidenti}">
+                            <td th:text="${presidente.nome}">Nome</td>
+                            <td th:text="${presidente.cognome}">Cognome</td>
+                            <td th:text="${presidente.dataDiNascita}">Data di Nascita</td>
+                            <td th:text="${presidente.squadra != null ? presidente.squadra.nome : 'N/A'}">Squadra</td>
+                            <td>
+                                <a th:href="@{/presidenti/modifica/{id}(id=${presidente.id})}" class="btn btn-edit" title="Modifica">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a th:href="@{/presidenti/elimina/{id}(id=${presidente.id})}" class="btn btn-delete" title="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questo presidente?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(presidenti)}">
+                            <td colspan="5" class="no-data">Nessun presidente trovato.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Federation League. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+</html>

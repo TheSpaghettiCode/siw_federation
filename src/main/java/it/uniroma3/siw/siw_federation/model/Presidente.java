@@ -6,16 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
-import java.util.Date;
+import jakarta.persistence.OneToOne;
+import java.time.LocalDate;
+
 
 
 @Entity
 public class Presidente {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,34 +23,23 @@ public class Presidente {
 
     @Column(nullable = false, unique = true)
     private String CF;
-
-    @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
     private String cognome;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dataDiNascita;
-
-    @Column(nullable = false)
+    private LocalDate dataDiNascita;
     private String luogoNascita;
 
     @OneToOne(mappedBy = "presidente")
     private Squadra squadra;
 
-    public Presidente(String CF,String nome, String cognome, Date dataDiNascita, Squadra squadra, String luogoNascita) {
+    public Presidente(String CF,String nome, String cognome, LocalDate dataDiNascita, String luogoNascita) {
         this.CF = CF;
         this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
         this.luogoNascita = luogoNascita;
-        this.squadra = squadra;
     }
 
-    @Lob
-    private String foto;
-
+    public Presidente(){}
 
     // Getters and Setters
     
@@ -78,21 +67,14 @@ public class Presidente {
         this.cognome = cognome;
     }
 
-    public Date getDataDiNascita() {
+    public LocalDate getDataDiNascita() {
         return dataDiNascita;
     }
 
-    public void setDataDiNascita(Date dataDiNascita) {
+    public void setDataDiNascita(LocalDate dataDiNascita) {
         this.dataDiNascita = dataDiNascita;
     }
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
 
     @Override
     public int hashCode() {
