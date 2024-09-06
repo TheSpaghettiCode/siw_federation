@@ -1,52 +1,69 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elenco Squadre</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <header>
-        <h1>Elenco delle Squadre</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-            <!-- <li th:if="${#authorization.expression('hasRole('PRESIDENTE')')}">
-                    <a href="/squadra/nuova">Crea Squadra</a>
-                </li>-->
-                <li><a href="/squadre/nuova">Crea Squadra</a></li>
-                <li><a href="/giocatori/all">Giocatori</a></li>
-            </ul>
-        </nav>
-    </header>
+    <html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista dei squadre</title>
+        <link rel="stylesheet" href="/css/style_liste.css">
+        <!-- Font Awesome per le icone -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <header>
+            <div class="navbar">
+                <div class="logo">Federazione Sportiva</div>
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/squadre/all">Squadre</a></li>
+                        <li><a href="/squadre/nuova">Nuova Squadra</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </header>
     
-    <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Anno di Fondazione</th>
-                    <th>Indirizzo</th>
-                    <th>Azione</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Popolamento dinamico dei dati -->
-                <tr th:each="squadra : ${squadre}">
-                    <td th:text="${squadra.nome}"></td>
-                    <td th:text="${squadra.annoFondazione}"></td>
-                    <td th:text="${squadra.indirizzoSede}"></td>
-                    <td>
-                        <a class="button" th:href="@{'/squadra/modifica/' + ${squadra.id}}">Modifica</a>
-                        <a class="button" th:href="@{'/squadra/cancella/' + ${squadra.id}}">Cancella</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
+        <main>
+            <section class="container">
+    
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data Fondazione</th>
+                                <th>Indirizzo Sede</th>
+                                <th>Descrizione</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="squadra : ${squadre}">
+                                <td th:text="${squadra.nome}">Nome</td>
+                                <td th:text="${squadra.dataFondazione}">Data Fondazione</td>
+                                <td th:text="${squadra.indirizzoSede}">Indirizzo Sede</td>
+                                <td th:text="${squadra.descrizione}">Descrizione</td>
+                                <td>
+                                    <a th:href="@{/squadre/modifica/{id}(id=${squadra.id})}" class="btn btn-edit" title="Modifica">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a th:href="@{/squadre/elimina/{id}(id=${squadra.id})}" class="btn btn-delete" title="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(squadre)}">
+                                <td colspan="5" class="no-data">Nessun squadra trovato.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
 
-    <footer>
+  <footer>
         <p>Contatti: Federazione Sportiva | Via Roma, 100 | 00100 Roma | Tel: +39 06 1234567 | Email: info@federazionesportiva.it</p>
     </footer>
 </body>

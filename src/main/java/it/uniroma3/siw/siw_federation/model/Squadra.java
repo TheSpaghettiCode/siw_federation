@@ -24,8 +24,10 @@ public class Squadra {
     private String nome;
     private LocalDate dataFondazione;
     private String indirizzoSede;
+
     @Column(length = 10000000)
     private String imageBase64;
+
     private String descrizione;
 
     @OneToMany(mappedBy = "squadra", cascade = CascadeType.ALL)
@@ -37,16 +39,15 @@ public class Squadra {
 
     
     
-    public Squadra(String nome, LocalDate dataFondazione, String indirizzoSede, Presidente presidente,String descrizione) {
+    public Squadra(String nome, LocalDate dataFondazione, String indirizzoSede,String descrizione, Presidente presidente) {
         this.nome = nome;
         this.dataFondazione = dataFondazione;
         this.indirizzoSede = indirizzoSede;
-        this.presidente = presidente;
         this.descrizione = descrizione;
+        this.presidente = presidente;
+        
     }
-    
-    public Squadra() {
-    }
+     public Squadra(){}
 
     public Long getId() {
         return id;

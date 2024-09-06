@@ -20,13 +20,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/home">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/squadre">Squadre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contatti">Contatti</a>
+                        <a class="nav-link" href="/squadre/all">Squadre</a>
                     </li>
                     <!-- Altri link di navigazione -->
                 </ul>
@@ -52,15 +49,15 @@
                         </div>
                         
                         <!-- Form per la creazione della squadra -->
-                        <form action="/nuovaSquadra" method="POST" enctype="multipart/form-data">
+                        <form th:action="@{/squadre/nuovaSquadra}" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome della Squadra</label>
                                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Inserisci il nome della squadra" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="dataDiFondazione" class="form-label">Data di Fondazione</label>
-                                <input type="date" class="form-control" id="dataDiFondazione" name="dataDiFondazione" required>
+                                <label for="dataFondazione" class="form-label">Data di Fondazione</label>
+                                <input type="date" class="form-control" id="dataFondazione" name="dataFondazione" required>
                             </div>
 
                             <div class="mb-3">
@@ -77,10 +74,11 @@
                                 </select>
                             </div>
                             
-                            <div class="mb-3">
+                            <!--<div class="mb-3">
                                 <label for="file" class="form-label">Logo della Squadra</label>
                                 <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
-                            </div>
+
+                            </div>-->
                             
                             <div class="mb-3">
                                 <label for="descrizione" class="form-label">Descrizione della Squadra</label>
@@ -89,7 +87,7 @@
                             
                             <div class="d-flex justify-content-between">
                                 <button type="submit" class="btn btn-success">Crea Squadra</button>
-                                <a href="/squadre" class="btn btn-secondary">Annulla</a>
+                                <a href="/home" class="btn btn-secondary">Annulla</a>
                             </div>
                         </form>
                     </div>

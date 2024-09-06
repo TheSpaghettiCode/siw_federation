@@ -71,6 +71,9 @@ public class SquadraController {
 
 package it.uniroma3.siw.siw_federation.controller;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +86,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.siw_federation.model.Presidente;
 import it.uniroma3.siw.siw_federation.model.Squadra;
@@ -130,18 +134,15 @@ public class SquadraController {
      */
     @GetMapping("/nuova")
     public String showNuovaSquadraForm(Model model) {
-        // Creiamo una nuova istanza di Squadra
-        Squadra squadra = new Squadra();
 
         // Recuperiamo la lista di tutti i Presidenti dal database
         List<Presidente> presidenti = presidenteService.getAllPresidenti();
 
         // Aggiungiamo l'istanza di Squadra e la lista di Presidenti al modello
-        model.addAttribute("squadra", squadra);
         model.addAttribute("presidenti", presidenti);
 
         // Ritorniamo la vista "nuovaSquadra" per visualizzare il form
-        return "nuovaSquadra";
+        return "squadre/nuovaSquadra.html";
     }
 
     /**
@@ -154,7 +155,7 @@ public class SquadraController {
      * @param model Il modello da passare alla vista.
      * @return Un redirect alla lista delle squadre o alla vista del form in caso di errore.
      */
-    @PostMapping("/nuova")
+    /*@PostMapping("/nuova")
     public String saveNuovaSquadra(
             @Valid @ModelAttribute("squadra") Squadra squadra,
             BindingResult bindingResult,
@@ -173,7 +174,32 @@ public class SquadraController {
 
         // Redirigiamo alla lista delle squadre o alla pagina desiderata
         return "redirect:/squadre";  // Puoi modificare l'URL di redirect in base alle tue esigenze
+    }*/
+
+    @PostMapping("/nuovaSquadra")
+    public String registerUser(@RequestParam(required = false, name = "nome") String nome, 
+                                @RequestParam(required = false, name = "dataFondazione") LocalDate dataFondazione,
+                                @RequestParam(required = false, name = "indirizzoSede") String indirizzoSede,
+                                @RequestParam(required = false, name = "descrizione") String descrizione,
+                                @RequestParam(required = false, name = "presidente") Presidente presidente,     
+                                @RequestParam(required = false, name = "image") MultipartFile file,
+                                Model model) {
+
+                Squadra squadra = new Squadra(nome, dataFondazione, indirizzoSede, descrizione, presidente);
+                squadraService.saveSquadra(squadra);
+                /*try {
+                    byte[] byteFoto = file.getBytes();
+                    squadra.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));
+                    
+                } catch (IOException e) {
+                    model.addAttribute("message", "Upload della foto fallito!");
+                    return "squadre/nuovaSquadra.html";
+                }*/ 
+
+        return "squadre/nuovaSquadra.html";
     }
+
+    
 
     // Mostra il form per modificare una squadra esistente
     @GetMapping("/modifica/{id}")
