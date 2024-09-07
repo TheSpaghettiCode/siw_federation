@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
@@ -31,9 +30,7 @@ public class Giocatore {
     private String cognome;
     private LocalDate dataNascita;
     private String luogoNascita;
-    
-    @Enumerated(EnumType.STRING)
-    private RuoloGiocatore ruolo;
+    private String ruolo;
 
     @Column(length = 10000000)
     private String imageBase64;
@@ -55,11 +52,19 @@ public class Giocatore {
     }
 
     public Giocatore() {
-        //TODO Auto-generated constructor stub
     }
 
-    @Lob
-    private String foto;
+    public Giocatore(String cF, String nome, String cognome, LocalDate dataNascita, String luogoNascita,
+            String ruolo, Squadra squadra) {
+        CF = cF;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.dataNascita = dataNascita;
+        this.luogoNascita = luogoNascita;
+        this.ruolo = ruolo;
+        this.squadra = squadra;
+    }
+
 
     public Long getId() {
         return id;
@@ -109,20 +114,12 @@ public class Giocatore {
         this.luogoNascita = luogoNascita;
     }
 
-    public RuoloGiocatore getRuolo() {
+    public String getRuolo() {
         return ruolo;
     }
 
-    public void setRuolo(RuoloGiocatore ruolo) {
+    public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 
 

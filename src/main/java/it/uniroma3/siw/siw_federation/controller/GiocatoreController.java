@@ -87,6 +87,8 @@ public class GiocatoreController {
 package it.uniroma3.siw.siw_federation.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -138,17 +140,16 @@ public class GiocatoreController {
         return "redirect:/giocatori"; // Se l'ID non esiste, torna alla lista dei giocatori
     }
 
-    // Mostra il form per creare un nuovo giocatore
+    /*// Mostra il form per creare un nuovo giocatore
     @GetMapping("/nuovo")
     public String showCreateGiocatoreForm(Model model) {
         model.addAttribute("giocatore", new Giocatore());
         model.addAttribute("ruoli", RuoloGiocatore.values()); // Per popolare il dropdown dei ruoli
         model.addAttribute("squadre", squadraService.getAllSquadre()); // Per popolare il dropdown delle squadre
         return "giocatori/nuovoGiocatore.html"; // Indica il template Thymeleaf per il form di creazione
-    }
-
-    // Gestisce la creazione di un nuovo giocatore
-    @PostMapping("/nuovo")
+    }*/
+    /*// Gestisce la creazione di un nuovo giocatore
+    @PostMapping("/nuovoGiocatore")
     public String createGiocatore(@Valid @ModelAttribute("giocatore") Giocatore giocatore, 
                                   BindingResult bindingResult,
                                   @RequestParam("image") MultipartFile file,
@@ -182,7 +183,61 @@ public class GiocatoreController {
         giocatore.setSquadra(squadra);
         giocatoreService.saveGiocatore(giocatore);
         return "redirect:/giocatori"; // Reindirizza alla lista dei giocatori dopo la creazione
+    }*/
+
+    @GetMapping("/nuovo")
+    public String showNuovoGiocatoreForm(Model model) {
+    
+        // Recuperiamo la lista di tutte le squadre e ruoli disponibili dal database
+        List<Squadra> squadre = squadraService.getAllSquadre();
+        List<String> ruoli = Arrays.asList("Attaccante", "Centrocampista", "Difensore", "Portiere");  // O recuperati dal DB
+    
+        // Aggiungiamo l'istanza di Giocatore e le liste al modello
+        model.addAttribute("giocatore", new Giocatore());
+        model.addAttribute("squadre", squadre);
+        model.addAttribute("ruoli", ruoli);
+    
+        // Ritorniamo la vista "nuovoGiocatore.html" per visualizzare il form
+        return "giocatori/nuovoGiocatore.html";
     }
+    
+    @PostMapping("/nuovoGiocatore")
+public String registerGiocatore(@RequestParam(required = false, name = "CF") String codiceFiscale,
+                                @RequestParam(required = false, name = "nome") String nome, 
+                                @RequestParam(required = false, name = "cognome") String cognome,
+                                @RequestParam(required = false, name = "dataNascita") LocalDate dataNascita,
+                                @RequestParam(required = false, name = "luogoNascita") String luogoNascita,
+                                @RequestParam(required = false, name = "ruolo") String ruolo,
+                                @RequestParam(required = false, name = "squadra") Long squadraId,
+                                @RequestParam(required = false, name = "image") MultipartFile file,
+                                Model model) {
+
+    // Recuperiamo la squadra dal database tramite l'ID
+    Squadra squadra = squadraService.getSquadraById(squadraId);
+
+    // Creiamo una nuova istanza di Giocatore
+    Giocatore giocatore = new Giocatore(codiceFiscale, nome, cognome, dataNascita, luogoNascita, ruolo, squadra);
+
+    // Se è presente un'immagine, la convertiamo in Base64 e la salviamo
+    try {
+        if (!file.isEmpty()) {
+            byte[] byteFoto = file.getBytes();
+            giocatore.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));
+        }
+    } catch (IOException e) {
+        model.addAttribute("message", "Upload della foto fallito!");
+        return "giocatori/nuovoGiocatore.html";
+    }
+
+    // Salviamo il giocatore nel database
+    giocatoreService.saveGiocatore(giocatore);
+
+    // Redirigiamo alla lista dei giocatori o a una pagina di successo
+    return "redirect:/giocatori/all";
+}
+
+
+
 
     // Mostra il form per modificare un giocatore esistente
     @GetMapping("/modifica/{id}")

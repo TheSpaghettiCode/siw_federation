@@ -1,28 +1,34 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elenco Giocatori</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <header>
-        <h1>Elenco dei Giocatori</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/squadre/all">Squadre</a></li>
-                <li><a href="/giocatori/nuovo">Crea Giocatore</a></li>
-               <!-- <li th:if="${#authorization.expression('hasRole('PRESIDENTE')')}">
-                    <a href="/giocatore/nuovo">Crea Giocatore</a>
-                </li>-->
-            </ul>
-        </nav>
-    </header>
+    <html lang="it" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista dei squadre</title>
+        <link rel="stylesheet" href="/css/style_liste.css">
+        <!-- Font Awesome per le icone -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <header>
+            <div class="navbar">
+                <div class="logo">Federazione Sportiva</div>
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/squadre/all">Squadre</a></li>
+                        <li><a href="/giocatori/nuovo">Nuovo Giocatore</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </header>
 
-    <main>
-        <table>
+        <main>
+        <section class="container">
+        <div class="table-responsive">
+            <table>
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -40,12 +46,22 @@
                     <td th:text="${giocatore.ruolo}"></td>
                     <td th:text="${giocatore.squadra != null ? giocatore.squadra.nome : 'N/A'}"></td>
                     <td>
-                        <a class="button" th:href="@{'/giocatore/modifica/' + ${giocatore.id}}">Modifica</a>
-                        <a class="button" th:href="@{'/giocatore/cancella/' + ${giocatore.id}}">Cancella</a>
+                        <a th:href="@{/squadre/modifica/{id}(id=${squadra.id})}" class="btn btn-edit" title="Modifica">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a th:href="@{/squadre/elimina/{id}(id=${squadra.id})}" class="btn btn-delete" title="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                    <tr th:if="${#lists.isEmpty(squadre)}">
+                    <td colspan="5" class="no-data">Nessun squadra trovato.</td>
+                </tr>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    </section>
     </main>
 
     <footer>
