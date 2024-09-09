@@ -172,17 +172,27 @@
                                     <option th:each="squadra : ${squadre}" th:value="${squadra.id}" th:text="${squadra.nome}"></option>
                                 </select>
                             </div>
-                            
+
                             <div class="mb-3">
+                                <label for="inizioTesseramento" class="form-label">Data di Inizio Tesseramento</label>
+                                <input type="date" class="form-control" id="inizioTesseramento" name="inizioTesseramento" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fineTesseramento" class="form-label">Data di Fine Tesseramento</label>
+                                <input type="date" class="form-control" id="fineTesseramento" name="fineTesseramento" required>
+                            </div>
+                            
+                            <!--<div class="mb-3">
                                 <label for="image" class="form-label">Foto del Giocatore</label>
                                 <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
-                            </div>
+                            </div>-->
 
                         
 
                             <div class="d-flex justify-content-between">
                                 <button type="submit" class="btn btn-success">Aggiungi Giocatore</button>
-                                <a href="/giocatori/all" class="btn btn-secondary">Annulla</a>
+                                <a href="/" class="btn btn-secondary">Annulla</a>
                             </div>
                         </form>
                     </div>

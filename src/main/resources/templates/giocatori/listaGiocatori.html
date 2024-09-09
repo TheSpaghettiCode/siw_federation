@@ -1,67 +1,68 @@
 <!DOCTYPE html>
-    <html lang="it" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Lista dei squadre</title>
-        <link rel="stylesheet" href="/css/style_liste.css">
-        <!-- Font Awesome per le icone -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
-    <body>
-        <header>
-            <div class="navbar">
-                <div class="logo">Federazione Sportiva</div>
-                <nav>
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/squadre/all">Squadre</a></li>
-                        <li><a href="/giocatori/nuovo">Nuovo Giocatore</a></li>
-                    </ul>
-                </nav>
-                <div class="user-actions">
-                    <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista dei giocatori</title>
+    <link rel="stylesheet" href="/css/style_liste.css">
+    <!-- Font Awesome per le icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">Federazione Sportiva</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/squadre/all">Squadre</a></li>
+                    <li><a href="/giocatori/nuovo">Nuovo Giocatore</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <main>
+    <main>
         <section class="container">
-        <div class="table-responsive">
-            <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Cognome</th>
-                    <th>Ruolo</th>
-                    <th>Squadra</th>
-                    <th>Azione</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Popolamento dinamico dei dati -->
-                <tr th:each="giocatore : ${giocatori}">
-                    <td th:text="${giocatore.nome}"></td>
-                    <td th:text="${giocatore.cognome}"></td>
-                    <td th:text="${giocatore.ruolo}"></td>
-                    <td th:text="${giocatore.squadra != null ? giocatore.squadra.nome : 'N/A'}"></td>
-                    <td>
-                        <a th:href="@{/squadre/modifica/{id}(id=${squadra.id})}" class="btn btn-edit" title="Modifica">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a th:href="@{/squadre/elimina/{id}(id=${squadra.id})}" class="btn btn-delete" title="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
-                </tr>
-                    <tr th:if="${#lists.isEmpty(squadre)}">
-                    <td colspan="5" class="no-data">Nessun squadra trovato.</td>
-                </tr>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-    </section>
+            <h1>Lista dei Giocatori</h1>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Ruolo</th>
+                            <th>Squadra</th>
+                            <th>Inizio Tesseramento</th>
+                            <th>Fine Tesseramento</th>
+                            <th>Azione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Popolamento dinamico dei dati -->
+                        <tr th:each="giocatore : ${giocatori}">
+                            <td th:text="${giocatore.nome}">Nome giocatore</td>
+                            <td th:text="${giocatore.cognome}">Cognome giocatore</td>
+                            <td th:text="${giocatore.ruolo}">Ruolo</td>
+                            <td th:text="${giocatore.squadra != null ? giocatore.squadra.nome : 'N/A'}">Squadra</td>
+                            <td th:text="${giocatore.inizioTesseramento}">inizio Tesseramento</td>
+                            <td th:text="${giocatore.fineTesseramento}">fine Tesseramento</td>
+                            <td>
+                                <a th:href="@{/giocatori/modifica/{id}(id=${giocatore.id})}" class="btn btn-edit" title="Modifica">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a th:href="@{/giocatori/elimina/{id}(id=${giocatore.id})}" class="btn btn-delete" title="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questo giocatore?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -69,3 +70,4 @@
     </footer>
 </body>
 </html>
+

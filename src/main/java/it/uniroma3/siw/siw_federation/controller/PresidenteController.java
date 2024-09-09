@@ -3,6 +3,7 @@ package it.uniroma3.siw.siw_federation.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties.Credential;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.uniroma3.siw.siw_federation.model.Presidente;
+import it.uniroma3.siw.siw_federation.service.CredentialsService;
 import it.uniroma3.siw.siw_federation.service.PresidenteService;
 import jakarta.validation.Valid;
 
@@ -22,6 +24,9 @@ public class PresidenteController {
 
     @Autowired
     private PresidenteService presidenteService;
+
+    @Autowired
+    private CredentialsService credentialsService;
 
     // Mostra la lista di tutti i presidenti
     @GetMapping("/all")
@@ -69,6 +74,7 @@ public class PresidenteController {
     // Gestisce la cancellazione di un presidente
     @GetMapping("/elimina/{id}")
     public String deletePresidente(@PathVariable("id") Long id) {
+        credentialsService.deleteByPresidenteId(id);
         presidenteService.deletePresidenteById(id);
         return "redirect:/presidenti"; // Reindirizza alla lista dei presidenti dopo la cancellazione
     }

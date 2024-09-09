@@ -6,8 +6,6 @@ import java.time.LocalDate;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,12 +29,15 @@ public class Giocatore {
     private LocalDate dataNascita;
     private String luogoNascita;
     private String ruolo;
+    private LocalDate inizioTesseramento;
+    private LocalDate fineTesseramento;
+
 
     @Column(length = 10000000)
     private String imageBase64;
 
     @ManyToOne
-    @JoinColumn(name = "squadra_id", nullable = false)
+    @JoinColumn(name = "squadra_id", referencedColumnName = "id")
     private Squadra squadra;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -55,7 +56,7 @@ public class Giocatore {
     }
 
     public Giocatore(String cF, String nome, String cognome, LocalDate dataNascita, String luogoNascita,
-            String ruolo, Squadra squadra) {
+                     String ruolo, Squadra squadra, LocalDate inizioTesseramento, LocalDate fineTesseramento ) {
         CF = cF;
         this.nome = nome;
         this.cognome = cognome;
@@ -63,6 +64,8 @@ public class Giocatore {
         this.luogoNascita = luogoNascita;
         this.ruolo = ruolo;
         this.squadra = squadra;
+        this.inizioTesseramento = inizioTesseramento;
+        this.fineTesseramento = fineTesseramento;
     }
 
 
@@ -122,6 +125,21 @@ public class Giocatore {
         this.ruolo = ruolo;
     }
 
+    public LocalDate getFineTesseramento() {
+        return fineTesseramento;
+    }
+
+    public void setFineTesseramento(LocalDate fineTesseramento) {
+        this.fineTesseramento = fineTesseramento;
+    }
+
+    public LocalDate getInizioTesseramento() {
+        return inizioTesseramento;
+    }
+
+    public void setInizioTesseramento(LocalDate inizioTesseramento) {
+        this.inizioTesseramento = inizioTesseramento;
+    }
 
     @Override
     public int hashCode() {

@@ -18,6 +18,11 @@ public interface CredentialsRepository extends JpaRepository<Credentials,Long> {
     @Modifying
     @Transactional
     @Query("DELETE FROM Credentials c WHERE c.presidente.id = :presidenteId")
-    public void deleteByJournalistId(Long presidenteId);
+    public void deleteByPresidenteId(Long presidenteId);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Credentials c WHERE c.giocatore.id = :giocatoreId")
+    public void deleteByGiocatoreId(Long giocatoreId);
 
 }

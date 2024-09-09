@@ -115,8 +115,6 @@ import java.time.LocalDate;
 import it.uniroma3.siw.siw_federation.model.Credentials;
 import it.uniroma3.siw.siw_federation.model.Giocatore;
 import it.uniroma3.siw.siw_federation.model.Presidente;
-import it.uniroma3.siw.siw_federation.model.RuoloGiocatore;
-import it.uniroma3.siw.siw_federation.model.Squadra;
 import it.uniroma3.siw.siw_federation.service.CredentialsService;
 import it.uniroma3.siw.siw_federation.service.GiocatoreService;
 import it.uniroma3.siw.siw_federation.service.PresidenteService;
@@ -166,16 +164,16 @@ public class AuthController {
             
             else if (role.equals("GIOCATORE")) {
                 Giocatore giocatore = new Giocatore(CF, nome, cognome, dataDiNascita, luogoNascita);
-
-                try {
+                credentials.setGiocatore(giocatore);
+                giocatoreService.saveGiocatore(giocatore);
+                
+                /*try {
                     byte[] byteFoto = file.getBytes();
-                    giocatore.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));
-                    giocatoreService.saveGiocatore(giocatore);
-                    credentials.setGiocatore(giocatore);
+                    giocatore.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));   
                 } catch (IOException e) {
                     model.addAttribute("message", "Upload della foto fallito!");
                     return "/registrationPage";
-                }
+                }*/
             } 
 
             credentialsService.saveCredentials(credentials, role);

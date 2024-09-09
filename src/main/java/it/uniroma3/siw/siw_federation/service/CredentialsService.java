@@ -47,8 +47,12 @@ public class CredentialsService {
         return this.credentialsRepository.save(credentials);
     }
 
-    public void deleteByJournalistId(Long chefId){
-        this.credentialsRepository.deleteByJournalistId(chefId);
+    public void deleteByPresidenteId(Long Id){
+        this.credentialsRepository.deleteByPresidenteId(Id);
+    }
+
+    public void deleteByGiocatoreId(Long Id){
+        this.credentialsRepository.deleteByGiocatoreId(Id);
     }
 
 }

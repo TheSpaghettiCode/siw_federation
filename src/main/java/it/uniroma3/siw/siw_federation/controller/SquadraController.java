@@ -205,22 +205,27 @@ public class SquadraController {
     @GetMapping("/modifica/{id}")
     public String showUpdateSquadraForm(@PathVariable("id") Long id, Model model) {
         Squadra squadra = squadraService.getSquadraById(id);
-        if (squadra != null) {
+
             model.addAttribute("squadra", squadra);
             model.addAttribute("presidenti", presidenteService.getAllPresidenti());
             return "squadre/modificaSquadra.html"; // Indica il template Thymeleaf per il form di modifica
-        }
-        return "redirect:/squadre"; // Se l'ID non esiste, torna alla lista delle squadre
+
+        //return "redirect:/squadre"; // Se l'ID non esiste, torna alla lista delle squadre
     }
 
     // Gestisce l'aggiornamento di una squadra esistente
     @PostMapping("/modifica/{id}")
     public String updateSquadra(@PathVariable("id") Long id,
                                 @Valid @ModelAttribute("squadra") Squadra squadra, 
-                                BindingResult bindingResult, 
-                                @RequestParam("presidenteId") Long presidenteId,
-                                Model model) {
-        if (bindingResult.hasErrors()) {
+                                @RequestParam(required = false, name = "nome") String nome, 
+                                @RequestParam(required = false, name = "dataFondazione") LocalDate dataFondazione,
+                                @RequestParam(required = false, name = "indirizzoSede") String indirizzoSede,
+                                @RequestParam(required = false, name = "descrizione") String descrizione,
+                                @RequestParam(required = false, name = "presidente") Presidente presidente,     
+                                @RequestParam(required = false, name = "image") MultipartFile file,
+                                Model model)  {
+
+        /*if (bindingResult.hasErrors()) {
             model.addAttribute("presidenti", presidenteService.getAllPresidenti());
             return "squadre/modificaSquadra.html"; // Ritorna al form se ci sono errori di validazione
         }
@@ -231,16 +236,22 @@ public class SquadraController {
             model.addAttribute("presidenti", presidenteService.getAllPresidenti());
             return "squadre/modificaSquadra.html"; // Ritorna al form se il presidente non esiste
         }
-
+        squadra.setPresidente(presidente);*/
+        
+        squadra.setNome(nome);
+        squadra.setDataFondazione(dataFondazione);
+        squadra.setIndirizzoSede(indirizzoSede);
+        squadra.setDescrizione(descrizione);
         squadra.setPresidente(presidente);
+
         squadraService.saveSquadra(squadra);
-        return "redirect:/squadre"; // Reindirizza alla lista delle squadre dopo l'aggiornamento
+        return "redirect:/squadre/all"; // Reindirizza alla lista delle squadre dopo l'aggiornamento
     }
 
     // Gestisce la cancellazione di una squadra
     @GetMapping("/elimina/{id}")
     public String deleteSquadra(@PathVariable("id") Long id) {
         squadraService.deleteSquadraById(id);
-        return "redirect:/squadre"; // Reindirizza alla lista delle squadre dopo la cancellazione
+        return "redirect:/squadre/all"; // Reindirizza alla lista delle squadre dopo la cancellazione
     }
 }
