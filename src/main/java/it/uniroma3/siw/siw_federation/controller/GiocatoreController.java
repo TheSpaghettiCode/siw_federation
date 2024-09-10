@@ -134,14 +134,11 @@ public class GiocatoreController {
     }
 
     // Mostra i dettagli di un singolo giocatore
-    @GetMapping("/{id}")
+    @GetMapping("/dettagli/{id}")
     public String getGiocatore(@PathVariable("id") Long id, Model model) {
         Giocatore giocatore = giocatoreService.getGiocatoreById(id);
-        if (giocatore != null) {
-            model.addAttribute("giocatore", giocatore);
-            return "giocatori/dettagliGiocatore.html"; // Indica il template Thymeleaf per la visualizzazione dei dettagli
-        }
-        return "redirect:/giocatori"; // Se l'ID non esiste, torna alla lista dei giocatori
+        model.addAttribute("giocatore", giocatore);
+        return "giocatori/dettagliGiocatore.html"; // Indica il template Thymeleaf per la visualizzazione dei dettagli
     }
 
     /*// Mostra il form per creare un nuovo giocatore

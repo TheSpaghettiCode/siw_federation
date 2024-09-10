@@ -76,6 +76,6 @@ public class PresidenteController {
     public String deletePresidente(@PathVariable("id") Long id) {
         credentialsService.deleteByPresidenteId(id);
         presidenteService.deletePresidenteById(id);
-        return "redirect:/presidenti"; // Reindirizza alla lista dei presidenti dopo la cancellazione
+        return "redirect:/presidenti/all"; // Reindirizza alla lista dei presidenti dopo la cancellazione
     }
 }

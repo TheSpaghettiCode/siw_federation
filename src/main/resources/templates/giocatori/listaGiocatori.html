@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="/css/style_liste.css">
     <!-- Font Awesome per le icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS per rendere le righe della tabella cliccabili */
+        tr.clickable-row {
+            cursor: pointer;
+        }
+        tr.clickable-row:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -43,13 +52,14 @@
                     </thead>
                     <tbody>
                         <!-- Popolamento dinamico dei dati -->
-                        <tr th:each="giocatore : ${giocatori}">
+                        <tr th:each="giocatore : ${giocatori}" class="clickable-row" 
+                            th:onclick="'window.location.href=\'/giocatori/dettagli/' + ${giocatore.id} + '\';'">
                             <td th:text="${giocatore.nome}">Nome giocatore</td>
                             <td th:text="${giocatore.cognome}">Cognome giocatore</td>
                             <td th:text="${giocatore.ruolo}">Ruolo</td>
                             <td th:text="${giocatore.squadra != null ? giocatore.squadra.nome : 'N/A'}">Squadra</td>
-                            <td th:text="${giocatore.inizioTesseramento}">inizio Tesseramento</td>
-                            <td th:text="${giocatore.fineTesseramento}">fine Tesseramento</td>
+                            <td th:text="${giocatore.inizioTesseramento}">Inizio Tesseramento</td>
+                            <td th:text="${giocatore.fineTesseramento}">Fine Tesseramento</td>
                             <td>
                                 <a th:href="@{/giocatori/modifica/{id}(id=${giocatore.id})}" class="btn btn-edit" title="Modifica">
                                     <i class="fas fa-edit"></i>
@@ -68,6 +78,15 @@
     <footer>
         <p>Contatti: Federazione Sportiva | Via Roma, 100 | 00100 Roma | Tel: +39 06 1234567 | Email: info@federazionesportiva.it</p>
     </footer>
+
+    <!-- Script per gestire il click sulla riga -->
+    <script>
+        document.querySelectorAll('.clickable-row').forEach(function(row) {
+            row.addEventListener('click', function() {
+                window.location = this.getAttribute('data-href');
+            });
+        });
+    </script>
 </body>
 </html>
 

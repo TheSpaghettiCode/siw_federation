@@ -251,6 +251,9 @@ public class SquadraController {
     // Gestisce la cancellazione di una squadra
     @GetMapping("/elimina/{id}")
     public String deleteSquadra(@PathVariable("id") Long id) {
+        Squadra squadra = squadraService.getSquadraById(id);
+        squadra.getPresidente().setSquadra(null);
+        squadra.setPresidente(null);
         squadraService.deleteSquadraById(id);
         return "redirect:/squadre/all"; // Reindirizza alla lista delle squadre dopo la cancellazione
     }

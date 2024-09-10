@@ -35,7 +35,7 @@
                             <th>Cognome</th>
                             <th>Data di Nascita</th>
                             <th>Squadra</th>
-                            <th>Azioni</th>
+                            <!--<th>Azioni</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -44,14 +44,14 @@
                             <td th:text="${presidente.cognome}">Cognome</td>
                             <td th:text="${presidente.dataDiNascita}">Data di Nascita</td>
                             <td th:text="${presidente.squadra != null ? presidente.squadra.nome : 'N/A'}">Squadra</td>
-                            <td>
+                            <!--<td>
                                 <a th:href="@{/presidenti/modifica/{id}(id=${presidente.id})}" class="btn btn-edit" title="Modifica">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a th:href="@{/presidenti/elimina/{id}(id=${presidente.id})}" class="btn btn-delete" title="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questo presidente?');">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
-                            </td>
+                            </td>-->
                         </tr>
                         <tr th:if="${#lists.isEmpty(presidenti)}">
                             <td colspan="5" class="no-data">Nessun presidente trovato.</td>
