@@ -46,6 +46,9 @@
                                 <td th:text="${squadra.indirizzoSede}">Indirizzo Sede</td>
                                 <td th:text="${squadra.descrizione}">Descrizione</td>
                                 <td>
+                                    <a th:href="@{/squadre/dettagli/{id}(id=${squadra.id})}" class="btn btn-info" title="Info">
+                                        <i class="fas fa-info"></i>
+                                    </a>
                                     <a th:href="@{/squadre/modifica/{id}(id=${squadra.id})}" class="btn btn-edit" title="Modifica">
                                         <i class="fas fa-edit"></i>
                                     </a>

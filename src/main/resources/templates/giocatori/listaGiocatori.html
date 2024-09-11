@@ -61,6 +61,9 @@
                             <td th:text="${giocatore.inizioTesseramento}">Inizio Tesseramento</td>
                             <td th:text="${giocatore.fineTesseramento}">Fine Tesseramento</td>
                             <td>
+                                <a th:href="@{/giocatori/dettagli/{id}(id=${giocatore.id})}" class="btn btn-info" title="Info">
+                                    <i class="fas fa-info"></i>
+                                </a>
                                 <a th:href="@{/giocatori/modifica/{id}(id=${giocatore.id})}" class="btn btn-edit" title="Modifica">
                                     <i class="fas fa-edit"></i>
                                 </a>

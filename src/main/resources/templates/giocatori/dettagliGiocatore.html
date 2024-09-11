@@ -1,50 +1,61 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dettagli Giocatore</title>
-    <link rel="stylesheet" href="/css/style.css"> <!-- Collegamento al file CSS -->
+    <link rel="stylesheet" href="/css/style_dettagli.css">
+    <!-- Font Awesome per le icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
     <header>
-        <h1>Dettagli Giocatore</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/squadra/squadre">Elenco Squadre</a></li>
-                <li><a href="/giocatore/giocatori">Giocatori</a></li>
-            </ul>
-        </nav>
+        <div class="navbar">
+            <div class="logo">Federazione Sportiva</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/squadre/all">Squadre</a></li>
+                    <li><a href="/giocatori/all">Giocatori</a></li>
+                    <li><a href="/giocatori/nuovo">Nuovo Giocatore</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
     </header>
 
     <main>
-        <section class="player-details">
-            <div class="player-photo">
-                <img th:src="'data:image/jpeg;base64,' + ${giocatore.imageBase64}" alt="Foto di ${giocatore.nome} ${giocatore.cognome}">
+        <section class="container">
+            <h1>Dettagli Giocatore</h1>
+            <div class="player-details">
+                <div class="player-image">
+                    <img th:src="${giocatore.imageBase64 != null ? 'data:image/jpeg;base64,' + giocatore.imageBase64 : '/images/default_profile.jpg'}" alt="Foto Giocatore">
+                </div>
+                <div class="player-info">
+                    <p><strong>Nome:</strong> <span th:text="${giocatore.nome}">Nome</span></p>
+                    <p><strong>Cognome:</strong> <span th:text="${giocatore.cognome}">Cognome</span></p>
+                    <p><strong>Codice Fiscale:</strong> <span th:text="${giocatore.CF}">CF</span></p>
+                    <p><strong>Data di Nascita:</strong> <span th:text="${giocatore.dataNascita}">Data di Nascita</span></p>
+                    <p><strong>Luogo di Nascita:</strong> <span th:text="${giocatore.luogoNascita}">Luogo di Nascita</span></p>
+                    <p><strong>Ruolo:</strong> <span th:text="${giocatore.ruolo}">Ruolo</span></p>
+                    <p><strong>Squadra:</strong> <span th:text="${giocatore.squadra != null ? giocatore.squadra.nome : 'N/A'}">Squadra</span></p>
+                    <p><strong>Inizio Tesseramento:</strong> <span th:text="${giocatore.inizioTesseramento}">Inizio Tesseramento</span></p>
+                    <p><strong>Fine Tesseramento:</strong> <span th:text="${giocatore.fineTesseramento}">Fine Tesseramento</span></p>
+                </div>
             </div>
-            <div class="player-info">
-                <h2 th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></h2>
-                <p><strong>Codice Fiscale:</strong> <span th:text="${giocatore.CF}"></span></p>
-                <p><strong>Data di Nascita:</strong> <span th:text="${#dates.format(giocatore.dataNascita, 'dd/MM/yyyy')}"></span></p>
-                <p><strong>Luogo di Nascita:</strong> <span th:text="${giocatore.luogoNascita}"></span></p>
-                <p><strong>Ruolo:</strong> <span th:text="${giocatore.ruolo}"></span></p>
-                <p><strong>Squadra:</strong> <span th:text="${giocatore.squadra.nome}"></span></p>
+            <div class="actions">
+                <a th:href="@{/giocatori/modifica/{id}(id=${giocatore.id})}" class="btn btn-edit"><i class="fas fa-edit"></i> Modifica</a>
+                <a th:href="@{/giocatori/elimina/{id}(id=${giocatore.id})}" class="btn btn-delete" onclick="return confirm('Sei sicuro di voler eliminare questo giocatore?');"><i class="fas fa-trash-alt"></i> Elimina</a>
+                <a href="/giocatori/all" class="btn btn-back"><i class="fas fa-arrow-left"></i> Indietro</a>
             </div>
         </section>
-
-        <div class="actions">
-            <a href="/giocatori" class="btn">Torna all'elenco giocatori</a>
-            <a th:href="@{/giocatore/edit/{id}(id=${giocatore.id})}" class="btn">Modifica Giocatore</a>
-            <a th:href="@{/giocatore/delete/{id}(id=${giocatore.id})}" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questo giocatore?');">Elimina Giocatore</a>
-        </div>
     </main>
 
     <footer>
-        <p>Federazione Sportiva - Contatti: info@federazionesportiva.it</p>
+        <p>Contatti: Federazione Sportiva | Via Roma, 100 | 00100 Roma | Tel: +39 06 1234567 | Email: info@federazionesportiva.it</p>
     </footer>
-
 </body>
 </html>
 

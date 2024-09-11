@@ -99,5 +99,9 @@ public class GiocatoreService {
         giocatoreRepository.deleteById(id);
     }
 
+    public Optional<Giocatore> findById(Long id) {
+        return giocatoreRepository.findById(id);
+    }
+
 
 }

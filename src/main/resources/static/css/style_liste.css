@@ -188,6 +188,15 @@ tbody td {
     background-color: #c0392b;
 }
 
+.btn-info {
+    background-color: #72e73c;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #1aab00;
+}
+
 /* Footer */
 footer {
     background-color: #0056b3;

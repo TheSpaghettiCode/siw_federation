@@ -114,14 +114,11 @@ public class SquadraController {
     }
 
     // Mostra i dettagli di una singola squadra
-    @GetMapping("/{id}")
+    @GetMapping("/dettagli/{id}")
     public String getSquadra(@PathVariable("id") Long id, Model model) {
         Squadra squadra = squadraService.getSquadraById(id);
-        if (squadra != null) {
-            model.addAttribute("squadra", squadra);
-            return "squadre/dettagliSquadra.html"; // Indica il template Thymeleaf per la visualizzazione dei dettagli della squadra
-        }
-        return "redirect:/squadre"; // Se l'ID non esiste, torna alla lista delle squadre
+        model.addAttribute("squadra", squadra);
+        return "squadre/dettagliSquadra.html"; // Indica il template Thymeleaf per la visualizzazione dei dettagli della squadra
     }
 
     /**
@@ -187,14 +184,15 @@ public class SquadraController {
 
                 Squadra squadra = new Squadra(nome, dataFondazione, indirizzoSede, descrizione, presidente);
                 squadraService.saveSquadra(squadra);
-                /*try {
+
+                try {
                     byte[] byteFoto = file.getBytes();
                     squadra.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));
                     
                 } catch (IOException e) {
                     model.addAttribute("message", "Upload della foto fallito!");
                     return "squadre/nuovaSquadra.html";
-                }*/ 
+                } 
 
         return "squadre/nuovaSquadra.html";
     }
@@ -225,19 +223,15 @@ public class SquadraController {
                                 @RequestParam(required = false, name = "image") MultipartFile file,
                                 Model model)  {
 
-        /*if (bindingResult.hasErrors()) {
-            model.addAttribute("presidenti", presidenteService.getAllPresidenti());
-            return "squadre/modificaSquadra.html"; // Ritorna al form se ci sono errori di validazione
-        }
+        try {
+            byte[] byteFoto = file.getBytes();
+            squadra.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));
+            
+        } catch (IOException e) {
+            model.addAttribute("message", "Upload della foto fallito!");
+            return "squadre/modificaSquadra.html";
+        } 
 
-        Presidente presidente = presidenteService.getPresidenteById(presidenteId);
-        if (presidente == null) {
-            model.addAttribute("message", "Il presidente selezionato non esiste");
-            model.addAttribute("presidenti", presidenteService.getAllPresidenti());
-            return "squadre/modificaSquadra.html"; // Ritorna al form se il presidente non esiste
-        }
-        squadra.setPresidente(presidente);*/
-        
         squadra.setNome(nome);
         squadra.setDataFondazione(dataFondazione);
         squadra.setIndirizzoSede(indirizzoSede);

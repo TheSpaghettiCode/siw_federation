@@ -1,52 +1,91 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dettagli Squadra</title>
-    <link rel="stylesheet" href="/css/style.css"> <!-- Collegamento al file CSS -->
+    <link rel="stylesheet" href="/css/style_dettagli_squadra.css">
+    <!-- Font Awesome per le icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
     <header>
-        <h1>Dettagli Squadra</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/squadra/squadre">Elenco Squadre</a></li>
-                <li><a href="/giocatore/giocatori">Giocatori</a></li>
-            </ul>
-        </nav>
+        <div class="navbar">
+            <div class="logo">Federazione Sportiva</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/squadre/all">Squadre</a></li>
+                    <li><a href="/giocatori/nuovo">Nuovo Giocatore</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
     </header>
 
     <main>
-        <section class="team-details">
-            <h2 th:text="${squadra.nome}"></h2>
-            <p><strong>Data di Fondazione:</strong> <span th:text="${#dates.format(squadra.dataFondazione, 'dd/MM/yyyy')}"></span></p>
-            <p><strong>Indirizzo Sede:</strong> <span th:text="${squadra.indirizzoSede}"></span></p>
-            <p><strong>Presidente:</strong> <span th:text="${squadra.presidente.nome} + ' ' + ${squadra.presidente.cognome}"></span></p>
-        </section>
+        <section class="container">
+            <h1>Dettagli Squadra</h1>
+            <div class="squad-details">
+                <div class="squad-image">
+                    <!--<img th:src="@{'data:image/png;base64,' + ${squadra.imageBase64}}" alt="Immagine Squadra" class="img-fluid">-->
+                    <img th:src="${squadra.imageBase64 != null ? 'data:image/jpeg;base64,' + squadra.imageBase64 : '/images/default_profile.jpg'}" alt="Scudetto Squadra">
+                </div>
+                <div class="squad-info">
+                    <h2 th:text="${squadra.nome}">Nome Squadra</h2>
+                    <p><strong>Data di Fondazione:</strong> <span th:text="${squadra.dataFondazione}">Data Fondazione</span></p>
+                    <p><strong>Indirizzo Sede:</strong> <span th:text="${squadra.indirizzoSede}">Indirizzo</span></p>
+                    <p><strong>Descrizione:</strong></p>
+                    <p th:text="${squadra.descrizione}">Descrizione squadra</p>
 
-        <section class="team-players">
-            <h3>Giocatori</h3>
-            <ul>
-                <li th:each="giocatore : ${squadra.giocatori}">
-                    <a th:href="@{/giocatore/{id}(id=${giocatore.id})}" th:text="${giocatore.nome} + ' ' + ${giocatore.cognome}"></a>
-                </li>
-            </ul>
-        </section>
+                    <div class="president-info">
+                        <h3>Presidente</h3>
+                        <p><strong>Nome:</strong> <span th:text="${squadra.presidente.nome}">Nome Presidente</span></p>
+                        <p><strong>Cognome:</strong> <span th:text="${squadra.presidente.cognome}">Cognome Presidente</span></p>
+                        <p><strong>Codice Fiscale:</strong> <span th:text="${squadra.presidente.CF}">CF</span></p>
+                    </div>
 
-        <div class="actions">
-            <a href="/squadre" class="btn">Torna all'elenco squadre</a>
-            <a th:href="@{/squadra/edit/{id}(id=${squadra.id})}" class="btn">Modifica Squadra</a>
-            <a th:href="@{/squadra/delete/{id}(id=${squadra.id})}" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');">Elimina Squadra</a>
-        </div>
+                    <div class="actions">
+                        <a th:href="@{/squadre/modifica/{id}(id=${squadra.id})}" class="btn btn-edit"><i class="fas fa-edit"></i> Modifica</a>
+                        <a th:href="@{/squadre/elimina/{id}(id=${squadra.id})}" class="btn btn-delete" onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');"><i class="fas fa-trash-alt"></i> Elimina</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sezione elenco giocatori della squadra -->
+            <section class="team-players">
+                <h2>Giocatori della Squadra</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Ruolo</th>
+                            <th>Data di Nascita</th>
+                            <th>Codice Fiscale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="giocatore : ${squadra.giocatori}" th:onclick="window.location='/giocatori/dettagli/' + ${giocatore.id}">
+                            <td th:text="${giocatore.nome}">Nome Giocatore</td>
+                            <td th:text="${giocatore.cognome}">Cognome Giocatore</td>
+                            <td th:text="${giocatore.ruolo}">Ruolo Giocatore</td>
+                            <td th:text="${giocatore.dataNascita}">Data di Nascita</td>
+                            <td th:text="${giocatore.CF}">Codice Fiscale</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </section>
     </main>
 
     <footer>
-        <p>Federazione Sportiva - Contatti: info@federazionesportiva.it</p>
+        <p>Contatti: Federazione Sportiva | Via Roma, 100 | 00100 Roma | Tel: +39 06 1234567 | Email: info@federazionesportiva.it</p>
     </footer>
-
 </body>
 </html>
+
 

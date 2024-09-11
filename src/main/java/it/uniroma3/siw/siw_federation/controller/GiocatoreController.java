@@ -91,6 +91,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -135,11 +136,12 @@ public class GiocatoreController {
 
     // Mostra i dettagli di un singolo giocatore
     @GetMapping("/dettagli/{id}")
-    public String getGiocatore(@PathVariable("id") Long id, Model model) {
+    public String getDettagliGiocatore(@PathVariable("id") Long id, Model model) {
         Giocatore giocatore = giocatoreService.getGiocatoreById(id);
         model.addAttribute("giocatore", giocatore);
-        return "giocatori/dettagliGiocatore.html"; // Indica il template Thymeleaf per la visualizzazione dei dettagli
+        return "giocatori/dettagliGiocatore.html";
     }
+    
 
     /*// Mostra il form per creare un nuovo giocatore
     @GetMapping("/nuovo")
@@ -212,7 +214,7 @@ public String registerGiocatore(@RequestParam(required = false, name = "CF") Str
                                 @RequestParam(required = false, name = "squadra") Squadra squadra,
                                 @RequestParam(required = false, name = "inizioTesseramento") LocalDate inizioTesseramento,
                                 @RequestParam(required = false, name = "fineTesseramento") LocalDate fineTesseramento,
-                                //@RequestParam(required = false, name = "image") MultipartFile file,
+                                @RequestParam(required = false, name = "image") MultipartFile file,
                                 Model model) {
 
 
@@ -220,7 +222,7 @@ public String registerGiocatore(@RequestParam(required = false, name = "CF") Str
     Giocatore giocatore = new Giocatore(codiceFiscale, nome, cognome, dataNascita, luogoNascita, ruolo, squadra, inizioTesseramento, fineTesseramento);
 
     // Se è presente un'immagine, la convertiamo in Base64 e la salviamo
-    /*try {
+    try {
         if (!file.isEmpty()) {
             byte[] byteFoto = file.getBytes();
             giocatore.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));
@@ -228,7 +230,7 @@ public String registerGiocatore(@RequestParam(required = false, name = "CF") Str
     } catch (IOException e) {
         model.addAttribute("message", "Upload della foto fallito!");
         return "giocatori/nuovoGiocatore.html";
-    }*/
+    }
 
     // Salviamo il giocatore nel database
     giocatoreService.saveGiocatore(giocatore);
