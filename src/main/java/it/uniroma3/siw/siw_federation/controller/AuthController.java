@@ -108,8 +108,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.time.LocalDate;
 
 import it.uniroma3.siw.siw_federation.model.Credentials;
@@ -137,7 +135,7 @@ public class AuthController {
         return "loginPage.html";
     }
 
-    @GetMapping("/registrationPage.html")
+    @GetMapping("/registrationPage")
     public String getRegistrationPage(Model model) {
         model.addAttribute("credentials", new Credentials());
         return "/registrationPage.html"; // Assumendo che la tua pagina sia registrationPage.html
@@ -158,8 +156,8 @@ public class AuthController {
 
             if (role.equals("PRESIDENTE")) {
                 Presidente presidente = new Presidente(CF, nome, cognome, dataDiNascita, luogoNascita);
-                presidenteService.savePresidente(presidente);
                 credentials.setPresidente(presidente);
+                presidenteService.savePresidente(presidente);
             }
             
             else if (role.equals("GIOCATORE")) {
@@ -167,13 +165,6 @@ public class AuthController {
                 credentials.setGiocatore(giocatore);
                 giocatoreService.saveGiocatore(giocatore);
                 
-                /*try {
-                    byte[] byteFoto = file.getBytes();
-                    giocatore.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));   
-                } catch (IOException e) {
-                    model.addAttribute("message", "Upload della foto fallito!");
-                    return "/registrationPage";
-                }*/
             } 
 
             credentialsService.saveCredentials(credentials, role);

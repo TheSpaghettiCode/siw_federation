@@ -36,10 +36,12 @@ public class CredentialsService {
 
     @Transactional
     public Credentials saveCredentials(Credentials credentials, String role) {
+        
         if(role.equals("GIOCATORE")){
             credentials.setRole(Credentials.GIOCATORE_ROLE);
         }
-        else if(role.equals("PRESIDENTE")){
+
+        if(role.equals("PRESIDENTE")){
             credentials.setRole(Credentials.PRESIDENTE_ROLE);
         }
 

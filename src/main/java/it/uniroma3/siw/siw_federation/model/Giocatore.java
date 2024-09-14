@@ -40,9 +40,6 @@ public class Giocatore {
     @JoinColumn(name = "squadra_id", referencedColumnName = "id")
     private Squadra squadra;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tessera_id", referencedColumnName = "id")
-    private Tessera tessera;
 
     public Giocatore(String CF,String nome, String cognome, LocalDate dataNascita, String luogoNascita) {
         this.CF = CF;
@@ -182,13 +179,7 @@ public class Giocatore {
         this.squadra = squadra;
     }
 
-    public Tessera getTessera() {
-        return tessera;
-    }
 
-    public void setTessera(Tessera tessera) {
-        this.tessera = tessera;
-    }
 
     
 }

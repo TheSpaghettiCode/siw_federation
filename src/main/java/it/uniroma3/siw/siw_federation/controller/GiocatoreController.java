@@ -268,7 +268,7 @@ public String registerGiocatore(@RequestParam(required = false, name = "CF") Str
                                   @RequestParam(required = false, name = "squadra") Squadra squadra,
                                   @RequestParam(required = false, name = "inizioTesseramento") LocalDate inizioTesseramento,
                                   @RequestParam(required = false, name = "fineTesseramento") LocalDate fineTesseramento,
-                                  //@RequestParam(required = false, name = "image") MultipartFile file,
+                                  @RequestParam(required = false, name = "image") MultipartFile file,
                                   Model model) {
                                     
         /*if (bindingResult.hasErrors()) {
@@ -295,6 +295,18 @@ public String registerGiocatore(@RequestParam(required = false, name = "CF") Str
             return "giocatori/modificaGiocatore.html";
         }*/
         
+        giocatore.setImageBase64(null);
+
+        try {
+            if (!file.isEmpty()) {
+                byte[] byteFoto = file.getBytes();
+                giocatore.setImageBase64(Base64.getEncoder().encodeToString(byteFoto));
+            }
+        } catch (IOException e) {
+            model.addAttribute("message", "Upload della foto fallito!");
+            return "giocatori/nuovoGiocatore.html";
+        }
+
         giocatore.setCF(ruolo);
         giocatore.setNome(nome);
         giocatore.setCognome(cognome);
